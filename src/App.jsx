@@ -373,7 +373,7 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
     '開始聊天吧！請輸入：「您好」',
     '請輸入：「你的功能是什麼?」',
   ];
-  const botReplies = ['您好', '我應該是一名履歷分析師吧'];
+  const botReplies = ['您好', '我是一名履歷分析師'];
 
   const handleSend = () => {
     if (!inputValue.trim() || isTyping || showSuccess) return;
@@ -688,7 +688,7 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
     '請輸入：「這位候選人的名字是?」',
     '請輸入：「他值得信賴嗎?」',
   ];
-  const botReplies = ['好像是 XXX', '或許值得吧'];
+  const botReplies = ['XXX', '值得'];
 
   const handleSend = (text) => {
     if (isTyping) return;

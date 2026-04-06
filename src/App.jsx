@@ -26,7 +26,7 @@ const CANDIDATES = [
     name: "陳以恩",
     age: 56,
     gender: "女",
-    location: "未提供",
+    location: "台北市",
     education: "指南大學 數位內容與科技學系（大學）",
     experience: [
       {
@@ -48,7 +48,7 @@ const CANDIDATES = [
     name: "林粼",
     age: 52,
     gender: "男",
-    location: "未提供",
+    location: "台北市",
     education: "吉人高職 圖文印刷及美工科（高職）",
     experience: [
       {
@@ -70,7 +70,7 @@ const CANDIDATES = [
     name: "王思穎",
     age: 30,
     gender: "女",
-    location: "未提供",
+    location: "台北市",
     education: "再興美工 媒體設計與印刷科（高職）",
     experience: [
       {
@@ -92,7 +92,7 @@ const CANDIDATES = [
     name: "張以安",
     age: 32,
     gender: "男",
-    location: "未提供",
+    location: "台北市",
     education: "工館大學 傳播學程（大學）",
     experience: [
       {

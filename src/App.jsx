@@ -502,7 +502,7 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
 // ============================================================
 function Screen_1_2_1({ showModal, onCloseModal }) {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="w-full max-w-[95vw] mx-auto">
       {/* Background dual-pane (blurred) */}
       <div className="flex gap-4 opacity-30 pointer-events-none min-h-[80vh]">
         <div className="w-[45%] bg-white rounded-2xl p-6 border border-gray-200">
@@ -563,10 +563,12 @@ function ResumePanel({ title, candidate, summary }) {
         {candidate ? (
           <>
             <div className="space-y-3">
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">{candidate.gender}</span>
-                <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">{candidate.age} 歲</span>
-                <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">{candidate.location}</span>
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-xl font-bold text-gray-900">{candidate.name}</h4>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">{candidate.age} 歲</span>
+                  <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">{candidate.location}</span>
+                </div>
               </div>
               <div>
                 <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-1">學歷</p>
@@ -745,7 +747,7 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
   };
 
   return (
-    <div className="max-w-7xl mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
+    <div className="w-full max-w-[95vw] mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
       <div className="w-[45%]">
         <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="XXXXXXXXXXXXXX" />
       </div>
@@ -780,7 +782,7 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
+    <div className="w-full max-w-[95vw] mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
       <div className="w-[45%]">
         <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="XXXXXXXXXXXXXX" />
       </div>
@@ -958,7 +960,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="w-full max-w-[95vw] mx-auto">
       {/* Round indicator */}
       <div className="flex justify-end mb-2 px-1">
         <span className="text-sm font-medium text-gray-500 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
@@ -998,7 +1000,7 @@ function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
   const roundMessages = chatHistory[`round-${round}`] || [];
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="w-full max-w-[95vw] mx-auto">
       <div className="flex justify-end mb-2 px-1">
         <span className="text-sm font-medium text-gray-500 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
           第 {round + 1} / 4 位候選人

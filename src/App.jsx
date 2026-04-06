@@ -1071,15 +1071,15 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
     <div className="flex items-center justify-center min-h-[90vh]">
       <div className="max-w-2xl w-full">
         {/* Header */}
-        <div className="text-center mb-8 animate-fade-in-up">
-          <h1 className="text-3xl font-bold text-gray-900">實驗已完成，感謝您的參與！</h1>
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">實驗已完成，謝謝您的參與！請直接關閉此視窗即可</h1>
           <p className="text-gray-500 mt-2">以下是您的評選結果摘要。</p>
         </div>
 
         {/* Rating cards grid */}
         <div className="grid grid-cols-2 gap-4 mb-8">
           {ratings.map((r, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow animate-fade-in-up" style={{ animationDelay: `${i * 100}ms` }}>
+            <div key={i} className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow">
               <h3 className="text-sm font-bold text-gray-500 mb-2">應徵者{chineseNums[i]}號</h3>
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl font-bold text-gray-800">{r || '-'}</span>
@@ -1090,7 +1090,7 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
         </div>
 
         {/* Session ID */}
-        <div className="bg-gray-50 rounded-2xl border border-gray-200 p-6 text-center animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+        <div className="bg-gray-50 rounded-2xl border border-gray-200 p-6 text-center">
           <p className="text-sm text-gray-500 mb-2">您的實驗識別碼</p>
           <div className="bg-gray-800 text-gray-200 font-mono text-2xl font-bold py-3 px-6 rounded-xl inline-block tracking-widest">
             {sessionId}
@@ -1101,7 +1101,7 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
         </div>
 
         {/* Final Thank You Note */}
-        <div className="text-center mt-10 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
+        <div className="text-center mt-10">
           <p className="text-gray-500 font-medium">
             感謝您今天所參與的評選系統測試，您的參與將是這個系統變得更好的動力！
           </p>

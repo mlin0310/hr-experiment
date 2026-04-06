@@ -346,7 +346,7 @@ function Screen_1_1_2({ onNext }) {
             本公司近期與政治大學合作推出一款履歷分析助手，您將扮演一位 HR 與此助手合作，並進行第一階段人選的篩選工作。
           </p>
           <p className="text-gray-700 leading-relaxed">
-            本公司近期正在徵選一位設計師，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
+            而我們近期正在徵選一位設計師，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
           </p>
           <p className="text-gray-500 leading-relaxed text-sm bg-gray-50 rounded-lg p-3 border border-gray-200">
             在閱讀完此敘述後，請按下一步進入新手教學。
@@ -534,10 +534,7 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
             <div className="space-y-4 text-gray-700 leading-relaxed mb-8">
               <p>親愛的受試者您好，感謝您完成練習階段的教學，現在進入正式階段。</p>
               <p>在畫面左方您將會看到應徵者的履歷，下方會有簡短的 AI 摘要。</p>
-              <p>在觀看完履歷與 AI 摘要後，您可以詢問 AI 兩次問題，最後做出評選。</p>
-              <p className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-gray-600 text-sm">
-                建議您可以先詢問應徵者的年資與年齡以理解基本的背景。
-              </p>
+              <p>在觀看完履歷與 AI 摘要後，您可以「詢問 AI 兩次問題」，最後做出評選。</p>
               <p className="text-sm text-gray-500">在您閱讀完此敘述後，請按下一步進入教學。</p>
             </div>
             <div className="flex justify-end">

@@ -901,7 +901,7 @@ function Screen_2_1_1({ onNext }) {
             親愛的受試者您好，感謝您完成教學，辛苦了！
           </p>
           <p className="text-gray-700 leading-relaxed">
-            本公司近期正在徵選一位設計師，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
+            而我們近期正在徵選一位設計師，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
           </p>
           <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
             <p className="text-gray-600 font-medium text-sm mb-2">建議您可以先詢問：</p>

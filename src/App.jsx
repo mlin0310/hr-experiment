@@ -706,6 +706,17 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
   ];
   const botReplies = ['周小明', '值得'];
 
+  const tutorialQuickTags = [
+    {
+      label: '受試者的年紀足以勝任嗎？',
+      reply: '周小明今年 34 歲，正值職涯發展的黃金時期，年紀方面完全足以勝任。',
+    },
+    {
+      label: '受試者的年資足以勝任嗎？',
+      reply: '周小明擔任行政助理約 6 年（2019-2025），但其背景以行政事務為主，與設計職位的專業年資略有落差，需進一步評估。',
+    },
+  ];
+
   const handleSend = (text) => {
     if (isTyping) return;
     const newMessages = [...messages, { role: 'user', text }];
@@ -720,10 +731,27 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
       if (tutorialDualStep === 0) {
         setTutorialDualStep(1);
       } else {
-        // Both questions done
         setTimeout(() => onComplete(), 500);
       }
     }, 800);
+  };
+
+  const handleTutorialQuickTag = (tag) => {
+    if (isTyping) return;
+    const newMessages = [...messages, { role: 'user', text: tag.label }];
+    setMessages(newMessages);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      setMessages(prev => [...prev, { role: 'bot', text: tag.reply }]);
+      setIsTyping(false);
+
+      if (tutorialDualStep === 0) {
+        setTutorialDualStep(1);
+      } else {
+        setTimeout(() => onComplete(), 500);
+      }
+    }, 600);
   };
 
   const dummyCandidate = {
@@ -760,6 +788,20 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
                 <span className="text-sm">{guideTexts[tutorialDualStep]}</span>
               </div>
             )}
+            {/* Quick tags */}
+            <div className="flex flex-col gap-2">
+              <p className="text-xs font-bold uppercase tracking-wider text-gray-400">快速發問</p>
+              {tutorialQuickTags.map((tag, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleTutorialQuickTag(tag)}
+                  disabled={isTyping}
+                  className="text-left text-sm px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
+                >
+                  {tag.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

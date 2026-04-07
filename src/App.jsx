@@ -750,24 +750,37 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
 
   return (
     <div className="w-full max-w-[95vw] mx-auto flex flex-col" style={{ height: 'calc(100vh - 2rem)' }}>
-      {/* Role & Task reminder */}
-      <div className="flex gap-4 mb-2">
-        <div className="role-reminder-block" style={{ width: '45%', flex: 'none' }}>
-          <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70">你的角色</p>
-          <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
-        </div>
-        <div className="task-reminder-block" style={{ flex: 1 }}>
-          <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
-          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
-        </div>
-      </div>
       <div className="flex gap-4 flex-1 min-h-0">
-        <div className="w-[45%]">
+        {/* Left column: Role / Task reminder + guide prompt */}
+        <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
+          <div className="bg-gray-700 text-white px-4 py-3 rounded-t-2xl">
+            <h2 className="text-sm font-bold">任務資訊</h2>
+          </div>
+          <div className="flex flex-col gap-3 p-3">
+            <div className="role-reminder-block">
+              <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70">你的角色</p>
+              <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
+            </div>
+            <div className="task-reminder-block">
+              <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
+              <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
+            </div>
+            {tutorialDualStep < 2 && (
+              <div className="guide-prompt animate-fade-in">
+                <span className="text-sm">{guideTexts[tutorialDualStep]}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Middle column: Resume */}
+        <div className="w-[40%]">
           <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="具備基礎行政能力，工作經歷穩定。" />
         </div>
-        <div className="w-[55%]">
+
+        {/* Right column: Chat */}
+        <div className="w-[38%]">
           <ChatPanel
-            guideText={tutorialDualStep < 2 ? guideTexts[tutorialDualStep] : null}
             messages={messages}
             onSend={handleSend}
             inputDisabled={isTyping}
@@ -1048,28 +1061,33 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
       </div>
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column: Role / Task reminder + Quick tags */}
-        <div className="w-[22%] flex flex-col gap-3">
-          <div className="role-reminder-block">
-            <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70">你的角色</p>
-            <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
+        <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
+          <div className="bg-gray-700 text-white px-4 py-3 rounded-t-2xl">
+            <h2 className="text-sm font-bold">任務資訊</h2>
           </div>
-          <div className="task-reminder-block">
-            <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
-            <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
-          </div>
-          {/* Quick tags */}
-          <div className="bg-white border border-gray-200 rounded-xl p-3 flex flex-col gap-2">
-            <p className="text-xs font-bold uppercase tracking-wider text-gray-400">快速發問</p>
-            {QUICK_TAGS.map((tag, i) => (
-              <button
-                key={i}
-                onClick={() => handleQuickTag(tag)}
-                disabled={questionCount >= maxQuestions || isTyping}
-                className="text-left text-sm px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
-              >
-                {tag.label}
-              </button>
-            ))}
+          <div className="flex flex-col gap-3 p-3">
+            <div className="role-reminder-block">
+              <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70">你的角色</p>
+              <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
+            </div>
+            <div className="task-reminder-block">
+              <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
+              <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
+            </div>
+            {/* Quick tags */}
+            <div className="flex flex-col gap-2">
+              <p className="text-xs font-bold uppercase tracking-wider text-gray-400">快速發問</p>
+              {QUICK_TAGS.map((tag, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleQuickTag(tag)}
+                  disabled={questionCount >= maxQuestions || isTyping}
+                  className="text-left text-sm px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
+                >
+                  {tag.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

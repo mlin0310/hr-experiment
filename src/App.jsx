@@ -933,7 +933,31 @@ function Screen_2_1_1({ onNext }) {
 }
 
 // ============================================================
-// 畫面 2-1-2：正式雙欄評選
+// 快速標籤資料（預設回覆，依 round index 對應四位候選人）
+// ============================================================
+const QUICK_TAGS = [
+  {
+    label: '受試者的年紀足以勝任嗎？',
+    replies: [
+      '陳以恩今年 56 歲，屬於資深年齡層。就設計職位而言，年紀本身並非主要障礙，其豐富的職場資歷反而是一大優勢，整體評估年紀足以勝任。',
+      '林粼今年 52 歲，年紀偏高，且近年才正式轉職至設計領域，在職涯轉換的適應能力上仍需進一步觀察。',
+      '王思穎今年 30 歲，正值職涯發展的黃金時期，就年紀而言完全足以勝任設計師一職。',
+      '張以安今年 32 歲，年紀適中，具備充足的職場能量與發展空間，年紀方面無疑足以勝任。',
+    ],
+  },
+  {
+    label: '受試者的年資足以勝任嗎？',
+    replies: [
+      '陳以恩累積逾 11 年的設計相關工作經驗，曾主導超過 10 項產品專案，設計年資相當充足，足以勝任。',
+      '林粼雖有多年廣告自營背景，但轉入正式設計職位僅約 2 年，正職設計年資相對較淺，尚需評估。',
+      '王思穎以接案與社團兼職為主，缺乏穩定的正職設計年資，整體資歷尚淺，勝任能力有待驗證。',
+      '張以安擁有超過 10 年設計年資，並曾擔任平面設計總監，年資豐富且具備領導經驗，足以勝任。',
+    ],
+  },
+];
+
+// ============================================================
+// 畫面 2-1-2：正式三欄評選
 // ============================================================
 function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCount, chatHistory, setChatHistory, group, onQuestionsComplete, sessionId }) {
   const [messages, setMessages] = useState([]);
@@ -941,14 +965,11 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
   const maxQuestions = 2;
 
   useEffect(() => {
-    // When round changes, start the candidate session on the backend
     fetch('/api/start_candidate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sessionId, candidateIndex: round, branch: group })
     }).catch(e => console.error("Failed to start candidate:", e));
-
-    // reset messages when round changes
     setMessages([]);
   }, [round, group, sessionId]);
 
@@ -984,36 +1005,77 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
     }
   };
 
+  const handleQuickTag = (tag) => {
+    if (questionCount >= maxQuestions || isTyping) return;
+
+    const newMessages = [...messages, { role: 'user', text: tag.label }];
+    setMessages(newMessages);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      const reply = tag.replies[round];
+      const updatedMessages = [...newMessages, { role: 'bot', text: reply }];
+      setMessages(updatedMessages);
+      setIsTyping(false);
+
+      const newCount = questionCount + 1;
+      setQuestionCount(newCount);
+
+      if (newCount >= maxQuestions) {
+        setChatHistory(prev => ({ ...prev, [`round-${round}`]: updatedMessages }));
+        setTimeout(() => onQuestionsComplete(), 2000);
+      }
+    }, 600);
+  };
+
   return (
-    <div className="w-full max-w-[95vw] mx-auto">
+    <div className="w-full max-w-[95vw] mx-auto flex flex-col" style={{ height: 'calc(100vh - 2rem)' }}>
       {/* Round indicator */}
       <div className="flex justify-end mb-2 px-1">
         <span className="text-sm font-medium text-gray-500 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
           第 {round + 1} / 4 位候選人
         </span>
       </div>
-      {/* Role & Task reminder */}
-      <div className="flex gap-3 mb-2">
-        <div className="role-reminder-block">
-          <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70">你的角色</p>
-          <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
+      <div className="flex gap-4 flex-1 min-h-0">
+        {/* Left column: Role / Task reminder + Quick tags */}
+        <div className="w-[22%] flex flex-col gap-3">
+          <div className="role-reminder-block">
+            <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70">你的角色</p>
+            <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
+          </div>
+          <div className="task-reminder-block">
+            <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
+            <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
+          </div>
+          {/* Quick tags */}
+          <div className="bg-white border border-gray-200 rounded-xl p-3 flex flex-col gap-2">
+            <p className="text-xs font-bold uppercase tracking-wider text-gray-400">快速發問</p>
+            {QUICK_TAGS.map((tag, i) => (
+              <button
+                key={i}
+                onClick={() => handleQuickTag(tag)}
+                disabled={questionCount >= maxQuestions || isTyping}
+                className="text-left text-sm px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
+              >
+                {tag.label}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="task-reminder-block">
-          <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
-          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
-        </div>
-      </div>
-      <div className="flex gap-4" style={{ height: 'calc(100vh - 9rem)' }}>
-        <div className="w-[45%]">
+
+        {/* Middle column: Resume */}
+        <div className="w-[40%]">
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
             summary={summary}
           />
         </div>
-        <div className="w-[55%]">
+
+        {/* Right column: Chat */}
+        <div className="w-[38%]">
           <ChatPanel
-            guideText={questionCount < maxQuestions ? `開始聊天吧！（剩餘 ${maxQuestions - questionCount} 次提問機會）` : null}
+            guideText={questionCount < maxQuestions ? `剩餘 ${maxQuestions - questionCount} 次提問機會` : null}
             successText={questionCount >= maxQuestions ? '已達本輪最大提問次數，即將進入評分...' : null}
             messages={messages}
             onSend={handleSend}

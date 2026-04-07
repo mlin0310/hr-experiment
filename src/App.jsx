@@ -728,7 +728,7 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
     age: 34,
     gender: "男",
     location: "台北市",
-    education: "輔仁大學 資訊管理學系（大學）",
+    education: "新莊大學 資訊管理學系（大學）",
     experience: [
       { title: "行政助理", company: "創達科技", period: "2019-2025", duties: ["負責日常行政事務與文件整理", "協助各部門資料彙整與報告製作"] },
     ],
@@ -765,7 +765,7 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
     age: 34,
     gender: "男",
     location: "台北市",
-    education: "輔仁大學 資訊管理學系（大學）",
+    education: "新莊大學 資訊管理學系（大學）",
     experience: [
       { title: "行政助理", company: "創達科技", period: "2019-2025", duties: ["負責日常行政事務與文件整理", "協助各部門資料彙整與報告製作"] },
     ],

@@ -412,19 +412,6 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
 
   return (
     <div className="max-w-2xl mx-auto">
-      {/* Guide / Success prompt — above the chat box */}
-      <div className="mb-3">
-        {!showSuccess ? (
-          <div className="guide-prompt animate-fade-in text-base">
-            <span>{guideTexts[tutorialStep]}</span>
-          </div>
-        ) : (
-          <div className="success-prompt animate-fade-in text-base">
-            <span>謝謝您完成練習階段教學，請接續完成正式階段教學。</span>
-          </div>
-        )}
-      </div>
-
       {/* Header */}
       <div className="bg-gray-700 text-white rounded-t-2xl px-6 py-3.5">
         <h2 className="text-base font-bold flex items-center gap-2">
@@ -457,6 +444,18 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
 
       {/* Input area */}
       <div className="bg-white border border-gray-200 rounded-b-2xl p-4 shadow-lg">
+        {/* Guide / Success prompt — above the input box */}
+        <div className="mb-3">
+          {!showSuccess ? (
+            <div className="guide-prompt animate-fade-in text-base">
+              <span>{guideTexts[tutorialStep]}</span>
+            </div>
+          ) : (
+            <div className="success-prompt animate-fade-in text-base">
+              <span>謝謝您完成練習階段教學，請接續完成正式階段教學。</span>
+            </div>
+          )}
+        </div>
         {showSuccess ? (
           <div className="flex justify-center">
             <button className="btn-primary" onClick={onComplete}>點此進入</button>

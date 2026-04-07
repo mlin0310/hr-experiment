@@ -534,11 +534,11 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
             <div className="flex items-center gap-3 mb-6">
               <h2 className="text-xl font-bold text-gray-900">正式階段教學</h2>
             </div>
-            <div className="space-y-3 text-gray-700 leading-relaxed mb-8">
-              <p>親愛的受試者您好，感謝您完成練習階段的教學，現在進入<strong>模擬實際操作畫面</strong>的正式階段。</p>
-              <p>在畫面左方您將會看到應徵者的履歷，下方會有一段簡短的 AI 摘要，請先<strong>閱讀完履歷</strong>後再觀看 AI 的摘要，並針對候選人的資訊進行<strong>兩次的提問</strong>。</p>
-              <p>倘若您尚無詢問方向，也可以選擇對話匡上方的<strong>標籤</strong>進行<strong>快速發問</strong>。請注意，<strong>快速發問同樣會列入次數內</strong>。</p>
-              <p className="font-bold" style={{ color: '#8b0000' }}>現在請同樣依照提示操作一遍</p>
+            <div className="space-y-4 text-gray-700 leading-relaxed mb-8">
+              <p>親愛的受試者您好，感謝您完成練習階段的教學。現在將進入<strong>模擬實際操作</strong>的正式教學階段。</p>
+              <p>畫面左方為本次系統測試的<strong>任務提醒</strong>，下方設有數個<strong>快速詢問標籤</strong>，方便您快速發問。畫面中間區塊呈現候選人的<strong>履歷</strong>與 <strong>AI 摘要</strong>，請先<strong>閱讀履歷</strong>後，再參閱 AI 所提供的摘要內容。畫面右方區塊則供您針對候選人資訊進行提問，您一共有<strong>兩次</strong>機會。</p>
+              <p>若您暫無詢問方向，亦可使用左方的<strong>快速發問標籤</strong>。請注意，<strong>快速發問同樣計入提問次數</strong>。</p>
+              <p className="font-bold" style={{ color: '#8b0000' }}>現在請依照提示開始操作。</p>
             </div>
             <div className="flex justify-end">
               <button className="btn-primary" onClick={onCloseModal}>下一步</button>

@@ -340,13 +340,13 @@ function Screen_1_1_2({ onNext }) {
           </h1>
         </div>
         <div className="space-y-5 mb-8">
-          <p className="text-gray-700 leading-relaxed">
+          <p className="text-gray-900 leading-relaxed text-base font-medium">
             本公司近期與政治大學合作推出一款履歷分析助手，您將扮演一位 HR 與此助手合作，並進行第一階段人選的篩選工作。
           </p>
-          <p className="text-gray-700 leading-relaxed">
+          <p className="text-gray-900 leading-relaxed text-base font-medium">
             而我們近期正在徵選一位設計師，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
           </p>
-          <p className="text-gray-500 leading-relaxed text-sm bg-gray-50 rounded-lg p-3 border border-gray-200">
+          <p className="text-gray-700 leading-relaxed text-sm bg-gray-50 rounded-lg p-3 border border-gray-200">
             在閱讀完此敘述後，請按下一步進入新手教學。
           </p>
         </div>
@@ -531,7 +531,7 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
             <div className="flex items-center gap-3 mb-6">
               <h2 className="text-xl font-bold text-gray-900">正式階段教學</h2>
             </div>
-            <div className="space-y-4 text-gray-700 leading-relaxed mb-8 text-center">
+            <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-center text-base font-medium">
               <p>親愛的受試者您好，感謝您完成練習階段的教學。現在將進入<strong>模擬實際操作</strong>的正式教學階段。</p>
               <p>畫面<strong>左方</strong>為本次系統測試的<strong>任務提醒</strong>，下方設有數個<strong>快速詢問標籤</strong>，方便您隨時發問。</p>
               <p>畫面<strong>中間</strong>區塊呈現候選人的<strong>履歷</strong>與 <strong>AI 摘要</strong>，請先<strong>閱讀履歷</strong>內容，再參閱 AI 所提供的摘要。</p>

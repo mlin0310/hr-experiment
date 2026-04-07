@@ -708,15 +708,20 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, successText, ac
 // ============================================================
 // 畫面 1-2-2 & 1-2-3：教學雙欄（合併）
 // ============================================================
-function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, setChatHistory, onComplete }) {
+function Screen_1_2_2_3({ onComplete }) {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
+  // phase: 'read' → 'tag' → 'type' → 'done'
+  const [phase, setPhase] = useState('read');
+  const [countdown, setCountdown] = useState(10);
 
-  const guideTexts = [
-    '請輸入：「這位候選人的名字是?」',
-    '請輸入：「他值得信賴嗎?」',
-  ];
-  const botReplies = ['周小明', '值得'];
+  // Countdown for read phase
+  useEffect(() => {
+    if (phase !== 'read') return;
+    if (countdown <= 0) { setPhase('tag'); return; }
+    const t = setTimeout(() => setCountdown(c => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [phase, countdown]);
 
   const tutorialQuickTags = [
     {
@@ -730,39 +735,27 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
   ];
 
   const handleSend = (text) => {
-    if (isTyping) return;
+    if (isTyping || phase !== 'type') return;
     const newMessages = [...messages, { role: 'user', text }];
     setMessages(newMessages);
     setIsTyping(true);
-
     setTimeout(() => {
-      const reply = botReplies[tutorialDualStep];
-      setMessages(prev => [...prev, { role: 'bot', text: reply }]);
+      setMessages(prev => [...prev, { role: 'bot', text: '這位應徵者的名字是周小明。' }]);
       setIsTyping(false);
-
-      if (tutorialDualStep === 0) {
-        setTutorialDualStep(1);
-      } else {
-        setTimeout(() => onComplete(), 500);
-      }
+      setPhase('done');
+      setTimeout(() => onComplete(), 1800);
     }, 800);
   };
 
   const handleTutorialQuickTag = (tag) => {
-    if (isTyping) return;
+    if (isTyping || phase !== 'tag') return;
     const newMessages = [...messages, { role: 'user', text: tag.label }];
     setMessages(newMessages);
     setIsTyping(true);
-
     setTimeout(() => {
       setMessages(prev => [...prev, { role: 'bot', text: tag.reply }]);
       setIsTyping(false);
-
-      if (tutorialDualStep === 0) {
-        setTutorialDualStep(1);
-      } else {
-        setTimeout(() => onComplete(), 500);
-      }
+      setPhase('type');
     }, 600);
   };
 
@@ -778,10 +771,54 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
     ],
   };
 
+  const readProgressPct = ((10 - countdown) / 10) * 100;
+
   return (
     <div className="w-full max-w-[95vw] mx-auto flex flex-col" style={{ height: 'calc(100vh - 2rem)' }}>
+
+      {/* Step banner */}
+      {phase === 'read' && (
+        <div className="mb-3 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3 flex items-center gap-4 animate-fade-in-up">
+          <div className="flex-1">
+            <p className="text-sm font-bold text-amber-800">步驟 1 / 3 ── 請閱讀履歷</p>
+            <p className="text-xs text-amber-700 mt-0.5">請先瀏覽中間欄位的候選人履歷，{countdown} 秒後自動進入下一步</p>
+            <div className="mt-2 h-1.5 bg-amber-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-amber-500 rounded-full transition-all duration-1000 ease-linear"
+                style={{ width: `${readProgressPct}%` }}
+              />
+            </div>
+          </div>
+          <div className="text-3xl font-bold text-amber-500 tabular-nums w-10 text-center">{countdown}</div>
+        </div>
+      )}
+      {phase === 'tag' && (
+        <div className="mb-3 bg-blue-50 border border-blue-200 rounded-xl px-5 py-3 flex items-center gap-3 animate-fade-in-up">
+          <div className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">2</div>
+          <div>
+            <p className="text-sm font-bold text-blue-800">步驟 2 / 3 ── 快速發問</p>
+            <p className="text-xs text-blue-700 mt-0.5">請點選左方欄位中任一「快速發問」標籤</p>
+          </div>
+        </div>
+      )}
+      {phase === 'type' && (
+        <div className="mb-3 bg-blue-50 border border-blue-200 rounded-xl px-5 py-3 flex items-center gap-3 animate-fade-in-up">
+          <div className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">3</div>
+          <div>
+            <p className="text-sm font-bold text-blue-800">步驟 3 / 3 ── 輸入問題</p>
+            <p className="text-xs text-blue-700 mt-0.5">請在右方對話欄輸入問題</p>
+          </div>
+        </div>
+      )}
+      {phase === 'done' && (
+        <div className="mb-3 bg-green-50 border border-green-200 rounded-xl px-5 py-3 flex items-center gap-3 animate-fade-in-up">
+          <div className="w-6 h-6 rounded-full bg-green-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">✓</div>
+          <p className="text-sm font-bold text-green-800">對話練習完成！即將進入評分階段...</p>
+        </div>
+      )}
+
       <div className="flex gap-4 flex-1 min-h-0">
-        {/* Left column: Role / Task reminder + guide prompt */}
+        {/* Left column */}
         <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
           <div className="bg-gray-700 text-white px-4 py-3 rounded-t-2xl">
             <h2 className="text-sm font-bold">任務資訊</h2>
@@ -795,11 +832,6 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
               <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
               <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
             </div>
-            {tutorialDualStep < 2 && (
-              <div className="guide-prompt animate-fade-in">
-                <span className="text-sm">{guideTexts[tutorialDualStep]}</span>
-              </div>
-            )}
             {/* Quick tags */}
             <div className="flex flex-col gap-2">
               <p className="text-xs font-bold uppercase tracking-wider text-gray-400">快速發問</p>
@@ -807,8 +839,12 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
                 <button
                   key={i}
                   onClick={() => handleTutorialQuickTag(tag)}
-                  disabled={isTyping}
-                  className="text-left text-sm px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
+                  disabled={isTyping || phase !== 'tag'}
+                  className={`text-left text-sm px-3 py-2 rounded-lg border transition-colors leading-snug
+                    ${phase === 'tag'
+                      ? 'border-blue-300 bg-blue-50 hover:bg-blue-100 ring-2 ring-blue-200 animate-pulse'
+                      : 'border-gray-200 bg-gray-50'}
+                    disabled:opacity-40 disabled:cursor-not-allowed`}
                 >
                   {tag.label}
                 </button>
@@ -825,9 +861,10 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
         {/* Right column: Chat */}
         <div className="w-[38%]">
           <ChatPanel
+            guideText={phase === 'type' ? '請輸入：「這個應徵者叫什麼名字？」' : null}
             messages={messages}
             onSend={handleSend}
-            inputDisabled={isTyping}
+            inputDisabled={phase !== 'type' || isTyping}
             isTyping={isTyping}
           />
         </div>

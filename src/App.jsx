@@ -700,7 +700,7 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
     '請輸入：「這位候選人的名字是?」',
     '請輸入：「他值得信賴嗎?」',
   ];
-  const botReplies = ['XXX', '值得'];
+  const botReplies = ['周小明', '值得'];
 
   const handleSend = (text) => {
     if (isTyping) return;
@@ -724,18 +724,20 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
 
   const dummyCandidate = {
     id: 0,
-    name: "XXXX",
-    age: 0,
-    gender: "XX",
-    location: "XXXX",
-    education: "XXXX",
-    experience: [{ title: "XXXX", company: "XXXX", period: "XXXX", duties: ["XXXX"] }],
+    name: "周小明",
+    age: 34,
+    gender: "男",
+    location: "台北市",
+    education: "輔仁大學 資訊管理學系（大學）",
+    experience: [
+      { title: "行政助理", company: "創達科技", period: "2019-2025", duties: ["負責日常行政事務與文件整理", "協助各部門資料彙整與報告製作"] },
+    ],
   };
 
   return (
     <div className="w-full max-w-[95vw] mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
       <div className="w-[45%]">
-        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="XXXXXXXXXXXXXX" />
+        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="具備基礎行政能力，工作經歷穩定。" />
       </div>
       <div className="w-[55%]">
         <ChatPanel
@@ -759,18 +761,20 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
 
   const dummyCandidate = {
     id: 0,
-    name: "XXXX",
-    age: 0,
-    gender: "XX",
-    location: "XXXX",
-    education: "XXXX",
-    experience: [{ title: "XXXX", company: "XXXX", period: "XXXX", duties: ["XXXX"] }],
+    name: "周小明",
+    age: 34,
+    gender: "男",
+    location: "台北市",
+    education: "輔仁大學 資訊管理學系（大學）",
+    experience: [
+      { title: "行政助理", company: "創達科技", period: "2019-2025", duties: ["負責日常行政事務與文件整理", "協助各部門資料彙整與報告製作"] },
+    ],
   };
 
   return (
     <div className="w-full max-w-[95vw] mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
       <div className="w-[45%]">
-        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="XXXXXXXXXXXXXX" />
+        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="具備基礎行政能力，工作經歷穩定。" />
       </div>
       <div className="w-[55%]">
         <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">

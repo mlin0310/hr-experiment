@@ -534,9 +534,11 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
             <div className="flex items-center gap-3 mb-6">
               <h2 className="text-xl font-bold text-gray-900">正式階段教學</h2>
             </div>
-            <div className="space-y-4 text-gray-700 leading-relaxed mb-8">
-              <p>親愛的受試者您好，感謝您完成練習階段的教學，現在進入正式階段。</p>
-              <p>在畫面左方您將會看到應徵者的履歷，下方會有簡短的 AI 摘要。</p>
+            <div className="space-y-3 text-gray-700 leading-relaxed mb-8">
+              <p>親愛的受試者您好，感謝您完成練習階段的教學，現在進入<strong>模擬實際操作畫面</strong>的正式階段。</p>
+              <p>在畫面左方您將會看到應徵者的履歷，下方會有一段簡短的 AI 摘要，請先<strong>閱讀完履歷</strong>後再觀看 AI 的摘要，並針對候選人的資訊進行<strong>兩次的提問</strong>。</p>
+              <p>倘若您尚無詢問方向，也可以選擇對話匡上方的<strong>標籤</strong>進行<strong>快速發問</strong>。請注意，<strong>快速發問同樣會列入次數內</strong>。</p>
+              <p className="font-bold" style={{ color: '#8b0000' }}>現在請同樣依照提示操作一遍</p>
             </div>
             <div className="flex justify-end">
               <button className="btn-primary" onClick={onCloseModal}>下一步</button>

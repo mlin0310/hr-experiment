@@ -749,18 +749,31 @@ function Screen_1_2_2_3({ tutorialDualStep, setTutorialDualStep, chatHistory, se
   };
 
   return (
-    <div className="w-full max-w-[95vw] mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
-      <div className="w-[45%]">
-        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="具備基礎行政能力，工作經歷穩定。" />
+    <div className="w-full max-w-[95vw] mx-auto flex flex-col" style={{ height: 'calc(100vh - 2rem)' }}>
+      {/* Role & Task reminder */}
+      <div className="flex gap-4 mb-2">
+        <div className="role-reminder-block" style={{ width: '45%', flex: 'none' }}>
+          <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70">你的角色</p>
+          <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
+        </div>
+        <div className="task-reminder-block" style={{ flex: 1 }}>
+          <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
+        </div>
       </div>
-      <div className="w-[55%]">
-        <ChatPanel
-          guideText={tutorialDualStep < 2 ? guideTexts[tutorialDualStep] : null}
-          messages={messages}
-          onSend={handleSend}
-          inputDisabled={isTyping}
-          isTyping={isTyping}
-        />
+      <div className="flex gap-4 flex-1 min-h-0">
+        <div className="w-[45%]">
+          <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="具備基礎行政能力，工作經歷穩定。" />
+        </div>
+        <div className="w-[55%]">
+          <ChatPanel
+            guideText={tutorialDualStep < 2 ? guideTexts[tutorialDualStep] : null}
+            messages={messages}
+            onSend={handleSend}
+            inputDisabled={isTyping}
+            isTyping={isTyping}
+          />
+        </div>
       </div>
     </div>
   );

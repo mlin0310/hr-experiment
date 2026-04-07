@@ -287,10 +287,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="fixed top-4 right-4 bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-bold shadow opacity-80 pointer-events-none z-50 border border-gray-300">
-        目前的版本：Branch a (無不確定性語氣)
-      </div>
-      <div className="w-full animate-fade-in-up">
+<div className="w-full animate-fade-in-up">
         {renderScreen()}
       </div>
     </div>

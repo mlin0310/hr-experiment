@@ -700,15 +700,20 @@ function Screen_1_2_2_3({ onComplete }) {
   const [isTyping, setIsTyping] = useState(false);
   // phase: 'read' → 'tag' → 'type' → 'done'
   const [phase, setPhase] = useState('read');
+  const [showStepModal, setShowStepModal] = useState(true);
   const [countdown, setCountdown] = useState(10);
 
-  // Countdown for read phase
+  // Countdown for read phase modal
   useEffect(() => {
-    if (phase !== 'read') return;
-    if (countdown <= 0) { setPhase('tag'); return; }
+    if (phase !== 'read' || !showStepModal) return;
+    if (countdown <= 0) {
+      setPhase('tag');
+      setShowStepModal(true);
+      return;
+    }
     const t = setTimeout(() => setCountdown(c => c - 1), 1000);
     return () => clearTimeout(t);
-  }, [phase, countdown]);
+  }, [phase, showStepModal, countdown]);
 
   const tutorialQuickTags = [
     {
@@ -730,7 +735,8 @@ function Screen_1_2_2_3({ onComplete }) {
       setMessages(prev => [...prev, { role: 'bot', text: '這位應徵者的名字是周小明。' }]);
       setIsTyping(false);
       setPhase('done');
-      setTimeout(() => onComplete(), 1800);
+      setShowStepModal(true);
+      setTimeout(() => onComplete(), 2000);
     }, 800);
   };
 
@@ -743,6 +749,7 @@ function Screen_1_2_2_3({ onComplete }) {
       setMessages(prev => [...prev, { role: 'bot', text: tag.reply }]);
       setIsTyping(false);
       setPhase('type');
+      setShowStepModal(true);
     }, 600);
   };
 
@@ -763,44 +770,59 @@ function Screen_1_2_2_3({ onComplete }) {
   return (
     <div className="w-full max-w-[95vw] mx-auto flex flex-col" style={{ height: 'calc(100vh - 2rem)' }}>
 
-      {/* Step banner */}
-      {phase === 'read' && (
-        <div className="mb-3 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3 flex items-center gap-4 animate-fade-in-up">
-          <div className="flex-1">
-            <p className="text-sm font-bold text-amber-800">步驟 1 / 3 ── 請閱讀履歷</p>
-            <p className="text-xs text-amber-700 mt-0.5">請先瀏覽中間欄位的候選人履歷，{countdown} 秒後自動進入下一步</p>
-            <div className="mt-2 h-1.5 bg-amber-200 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-amber-500 rounded-full transition-all duration-1000 ease-linear"
-                style={{ width: `${readProgressPct}%` }}
-              />
-            </div>
+      {/* Step modals */}
+      {showStepModal && (
+        <div className="modal-overlay">
+          <div className="modal-card animate-fade-in-up">
+            {phase === 'read' && (
+              <>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">1</div>
+                  <h2 className="text-lg font-bold text-gray-900">步驟 1 / 3 ── 請閱讀履歷</h2>
+                </div>
+                <p className="text-gray-700 text-sm mb-5">請先瀏覽中間欄位的候選人履歷內容。視窗將在倒數結束後自動關閉。</p>
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-amber-500 rounded-full transition-all duration-1000 ease-linear" style={{ width: `${readProgressPct}%` }} />
+                  </div>
+                  <span className="text-2xl font-bold text-amber-500 tabular-nums w-8 text-right">{countdown}</span>
+                </div>
+              </>
+            )}
+            {phase === 'tag' && (
+              <>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-7 h-7 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">2</div>
+                  <h2 className="text-lg font-bold text-gray-900">步驟 2 / 3 ── 快速發問</h2>
+                </div>
+                <p className="text-gray-700 text-sm mb-6">請點選左方欄位中任一「快速發問」標籤，體驗快速發問功能。</p>
+                <div className="flex justify-end">
+                  <button className="btn-primary" onClick={() => setShowStepModal(false)}>了解，開始操作</button>
+                </div>
+              </>
+            )}
+            {phase === 'type' && (
+              <>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-7 h-7 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">3</div>
+                  <h2 className="text-lg font-bold text-gray-900">步驟 3 / 3 ── 輸入問題</h2>
+                </div>
+                <p className="text-gray-700 text-sm mb-6">請在右方對話欄位輸入：「這個應徵者叫什麼名字？」</p>
+                <div className="flex justify-end">
+                  <button className="btn-primary" onClick={() => setShowStepModal(false)}>了解，開始操作</button>
+                </div>
+              </>
+            )}
+            {phase === 'done' && (
+              <div className="text-center py-2">
+                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-green-600 text-xl font-bold">✓</span>
+                </div>
+                <p className="text-lg font-bold text-gray-900 mb-1">對話練習完成！</p>
+                <p className="text-sm text-gray-500">即將進入評分階段...</p>
+              </div>
+            )}
           </div>
-          <div className="text-3xl font-bold text-amber-500 tabular-nums w-10 text-center">{countdown}</div>
-        </div>
-      )}
-      {phase === 'tag' && (
-        <div className="mb-3 bg-blue-50 border border-blue-200 rounded-xl px-5 py-3 flex items-center gap-3 animate-fade-in-up">
-          <div className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">2</div>
-          <div>
-            <p className="text-sm font-bold text-blue-800">步驟 2 / 3 ── 快速發問</p>
-            <p className="text-xs text-blue-700 mt-0.5">請點選左方欄位中任一「快速發問」標籤</p>
-          </div>
-        </div>
-      )}
-      {phase === 'type' && (
-        <div className="mb-3 bg-blue-50 border border-blue-200 rounded-xl px-5 py-3 flex items-center gap-3 animate-fade-in-up">
-          <div className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">3</div>
-          <div>
-            <p className="text-sm font-bold text-blue-800">步驟 3 / 3 ── 輸入問題</p>
-            <p className="text-xs text-blue-700 mt-0.5">請在右方對話欄輸入問題</p>
-          </div>
-        </div>
-      )}
-      {phase === 'done' && (
-        <div className="mb-3 bg-green-50 border border-green-200 rounded-xl px-5 py-3 flex items-center gap-3 animate-fade-in-up">
-          <div className="w-6 h-6 rounded-full bg-green-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">✓</div>
-          <p className="text-sm font-bold text-green-800">對話練習完成！即將進入評分階段...</p>
         </div>
       )}
 

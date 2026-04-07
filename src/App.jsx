@@ -130,16 +130,6 @@ const SUMMARIES = {
 };
 
 // ============================================================
-// 佔位回覆（正式評選用）
-// ============================================================
-const PLACEHOLDER_RESPONSES = [
-  "這位候選人的思維比較定型。",
-  "根據履歷，此應徵者適應力令人擔憂。",
-  "此候選人心態良好，很有潛力。",
-  "從履歷來看，此應徵者想法跟得上。",
-];
-
-// ============================================================
 // 工具函式
 // ============================================================
 function generateSessionId() {
@@ -245,6 +235,7 @@ export default function App() {
             chatHistory={chatHistory}
             setChatHistory={setChatHistory}
             group={group}
+            sessionId={sessionId}
             onQuestionsComplete={() => navigateTo('2-1-3')}
           />
         );
@@ -534,8 +525,6 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
             <div className="space-y-4 text-gray-700 leading-relaxed mb-8">
               <p>親愛的受試者您好，感謝您完成練習階段的教學，現在進入正式階段。</p>
               <p>在畫面左方您將會看到應徵者的履歷，下方會有簡短的 AI 摘要。</p>
-              <p>在觀看完履歷與 AI 摘要後，您可以「詢問 AI 兩次問題」，最後做出評選。</p>
-              <p className="text-sm text-gray-500">在您閱讀完此敘述後，請按下一步進入教學。</p>
             </div>
             <div className="flex justify-end">
               <button className="btn-primary" onClick={onCloseModal}>下一步</button>
@@ -925,23 +914,39 @@ function Screen_2_1_1({ onNext }) {
 // ============================================================
 // 畫面 2-1-2：正式雙欄評選
 // ============================================================
-function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCount, chatHistory, setChatHistory, group, onQuestionsComplete }) {
+function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCount, chatHistory, setChatHistory, group, onQuestionsComplete, sessionId }) {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const maxQuestions = 2;
 
-  const handleSend = (text) => {
+  useEffect(() => {
+    // When round changes, start the candidate session on the backend
+    fetch('/api/start_candidate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, candidateIndex: round, branch: group })
+    }).catch(e => console.error("Failed to start candidate:", e));
+
+    // reset messages when round changes
+    setMessages([]);
+  }, [round, group, sessionId]);
+
+  const handleSend = async (text) => {
     if (questionCount >= maxQuestions || isTyping) return;
 
     const newMessages = [...messages, { role: 'user', text }];
     setMessages(newMessages);
     setIsTyping(true);
 
-    // TODO: 替換為 Gemini API 呼叫
-    // const response = await callGeminiAPI(text, candidate, group);
-    setTimeout(() => {
-      const reply = PLACEHOLDER_RESPONSES[Math.floor(Math.random() * PLACEHOLDER_RESPONSES.length)];
-      const updatedMessages = [...newMessages, { role: 'bot', text: reply }];
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, message: text })
+      });
+      const data = await response.json();
+
+      const updatedMessages = [...newMessages, { role: 'bot', text: data.reply || "Error connecting to AI" }];
       setMessages(updatedMessages);
       setIsTyping(false);
 
@@ -949,11 +954,13 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
       setQuestionCount(newCount);
 
       if (newCount >= maxQuestions) {
-        // Store chat history
         setChatHistory(prev => ({ ...prev, [`round-${round}`]: updatedMessages }));
         setTimeout(() => onQuestionsComplete(), 2000);
       }
-    }, 1000);
+    } catch (e) {
+      console.error(e);
+      setIsTyping(false);
+    }
   };
 
   return (

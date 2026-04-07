@@ -412,6 +412,19 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
 
   return (
     <div className="max-w-2xl mx-auto">
+      {/* Guide / Success prompt — above the chat box */}
+      <div className="mb-3">
+        {!showSuccess ? (
+          <div className="guide-prompt animate-fade-in text-base">
+            <span>{guideTexts[tutorialStep]}</span>
+          </div>
+        ) : (
+          <div className="success-prompt animate-fade-in text-base">
+            <span>謝謝您完成練習階段教學，請接續完成正式階段教學。</span>
+          </div>
+        )}
+      </div>
+
       {/* Header */}
       <div className="bg-gray-700 text-white rounded-t-2xl px-6 py-3.5">
         <h2 className="text-base font-bold flex items-center gap-2">
@@ -420,21 +433,8 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
       </div>
       {/* Chat area */}
       <div className="bg-white border-x border-gray-200 flex flex-col" style={{ height: '480px' }}>
-        {/* Guide prompt */}
-        <div className="p-4">
-          {!showSuccess ? (
-            <div className="guide-prompt animate-fade-in">
-              <span>{guideTexts[tutorialStep]}</span>
-            </div>
-          ) : (
-            <div className="success-prompt animate-fade-in">
-              <span>謝謝您完成練習階段教學，請接續完成正式階段教學。</span>
-            </div>
-          )}
-        </div>
-
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 space-y-3">
+        <div className="flex-1 overflow-y-auto px-4 pt-4 space-y-3">
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
               <div className={msg.role === 'user' ? 'chat-bubble-user' : 'chat-bubble-bot'}>

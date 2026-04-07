@@ -39,6 +39,10 @@
 }
 
 @layer base {
+  html {
+    font-size: 112%;
+  }
+
   body {
     background-color: var(--bg-main);
     min-height: 100vh;

@@ -371,8 +371,11 @@ function Screen_1_1_3({ onNext }) {
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800">新手教學</h1>
         </div>
-        <p className="text-gray-600 leading-relaxed text-lg mb-8">
+        <p className="text-gray-600 leading-relaxed text-lg mb-4">
           以下將為您展示如何使用這個對話機器人。
+        </p>
+        <p className="text-lg font-bold mb-8" style={{ color: '#8b0000' }}>
+          以下請依照提示操作一遍
         </p>
         <button className="btn-primary" onClick={onNext}>下一步</button>
       </div>

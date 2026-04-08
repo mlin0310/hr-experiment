@@ -472,13 +472,20 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
           </div>
         ) : (
           <div className="flex gap-2">
-            <input
-              type="text"
+            <textarea
+              rows={2}
               value={inputValue}
               onChange={e => setInputValue(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && handleSend()}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  if (inputValue.endsWith('\n')) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }
+              }}
               placeholder="在此輸入..."
-              className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400 transition-all"
+              className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400 transition-all resize-none"
               disabled={isTyping}
             />
             <button
@@ -677,13 +684,20 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, successText, ac
           <div className="flex justify-center">{actionButton}</div>
         ) : (
           <div className="flex gap-2">
-            <input
-              type="text"
+            <textarea
+              rows={2}
               value={inputValue}
               onChange={e => setInputValue(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && handleSend()}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  if (inputValue.endsWith('\n')) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }
+              }}
               placeholder={inputDisabled ? '已達本輪最大提問次數' : '在此輸入...'}
-              className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400 transition-all disabled:bg-gray-50 disabled:text-gray-400 text-sm"
+              className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400 transition-all disabled:bg-gray-50 disabled:text-gray-400 text-sm resize-none"
               disabled={inputDisabled || externalTyping}
             />
             <button

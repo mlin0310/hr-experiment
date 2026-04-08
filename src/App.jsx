@@ -520,9 +520,9 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
 function Screen_1_2_1({ showModal, onCloseModal }) {
   return (
     <div className="fixed inset-0">
-      {/* Background dual-pane (blurred) — fills entire viewport */}
-      <div className="flex gap-4 opacity-30 pointer-events-none h-full p-4">
-        <div className="w-[22%] bg-white rounded-2xl p-5 border border-gray-200 flex flex-col gap-3">
+      {/* Background three-pane (blurred) — fills entire viewport */}
+      <div className="flex gap-4 opacity-30 pointer-events-none p-4" style={{ height: '100vh' }}>
+        <div className="w-[22%] h-full bg-white rounded-2xl p-5 border border-gray-200 flex flex-col gap-3">
           <h3 className="text-base font-bold text-gray-400">任務資訊</h3>
           <div className="h-16 bg-purple-100 rounded-xl"></div>
           <div className="h-24 bg-gray-100 rounded-xl"></div>
@@ -532,27 +532,28 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
             ))}
           </div>
         </div>
-        <div className="w-[40%] bg-white rounded-2xl p-5 border border-gray-200 flex flex-col gap-3">
+        <div className="w-[40%] h-full bg-white rounded-2xl p-5 border border-gray-200 flex flex-col gap-3">
           <h3 className="text-base font-bold text-gray-400">履歷內容</h3>
           <div className="flex gap-2 mb-1">
             <div className="h-7 w-24 bg-gray-200 rounded-full"></div>
             <div className="h-7 w-16 bg-gray-200 rounded-full"></div>
           </div>
-          <div className="space-y-2">
+          <div className="flex-1 space-y-2">
             {[...Array(10)].map((_, i) => (
               <div key={i} className="h-4 bg-gray-200 rounded" style={{ width: `${55 + (i * 13) % 45}%` }}></div>
             ))}
           </div>
-          <div className="h-32 bg-gray-100 rounded-xl mt-2"></div>
+          <div className="h-32 bg-gray-100 rounded-xl"></div>
         </div>
-        <div className="w-[38%] bg-white rounded-2xl p-5 border border-gray-200 flex flex-col gap-3">
+        <div className="w-[38%] h-full bg-white rounded-2xl p-5 border border-gray-200 flex flex-col gap-3">
           <h3 className="text-base font-bold text-gray-400">對話助手</h3>
-          <div className="flex-1 space-y-3">
+          <div className="flex-1 space-y-3 pt-2">
             <div className="h-10 bg-gray-100 rounded-2xl w-3/4 ml-auto"></div>
             <div className="h-14 bg-gray-200 rounded-2xl w-4/5"></div>
             <div className="h-10 bg-gray-100 rounded-2xl w-2/3 ml-auto"></div>
+            <div className="h-14 bg-gray-200 rounded-2xl w-4/5"></div>
           </div>
-          <div className="h-12 bg-gray-100 rounded-xl mt-auto"></div>
+          <div className="h-12 bg-gray-100 rounded-xl"></div>
         </div>
       </div>
 

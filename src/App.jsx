@@ -303,6 +303,9 @@ function Screen_1_1_1({ onNext }) {
       <div className="card-screen">
         <div className="card-header">
           <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
             歡迎
           </h1>
         </div>
@@ -326,6 +329,9 @@ function Screen_1_1_2({ onNext }) {
       <div className="card-screen">
         <div className="card-header">
           <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
             實驗說明
           </h1>
         </div>
@@ -356,6 +362,11 @@ function Screen_1_1_3({ onNext }) {
     <div className="flex items-center justify-center min-h-[80vh]">
       <div className="card-screen text-center">
         <div className="mb-6">
+          <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
           <h1 className="text-2xl font-bold text-gray-800">新手教學</h1>
         </div>
         <p className="text-gray-600 leading-relaxed text-lg mb-4">
@@ -415,6 +426,9 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
       {/* Header */}
       <div className="bg-[#2d3b6b] text-white rounded-t-2xl px-6 py-3.5">
         <h2 className="text-base font-bold flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
           新手教學
         </h2>
       </div>
@@ -448,10 +462,16 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
         <div className="mb-3">
           {!showSuccess ? (
             <div className="guide-prompt animate-fade-in text-base">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
               <span>{guideTexts[tutorialStep]}</span>
             </div>
           ) : (
             <div className="success-prompt animate-fade-in text-base">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               <span>謝謝您完成練習階段教學，請接續完成正式階段教學。</span>
             </div>
           )}
@@ -526,6 +546,11 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
         <div className="modal-overlay">
           <div className="modal-card animate-fade-in-up">
             <div className="flex items-center gap-3 mb-6">
+              <div className="w-9 h-9 rounded-full bg-[#2d3b6b] flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
               <h2 className="text-xl font-bold text-gray-900">正式階段教學</h2>
             </div>
             <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-center text-base font-medium">
@@ -553,6 +578,9 @@ function ResumePanel({ title, candidate, summary }) {
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
       <div className="bg-[#2d3b6b] text-white px-5 py-3 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
         <h3 className="font-bold">{title}</h3>
       </div>
       <div className="flex-1 overflow-y-auto p-5 space-y-4">
@@ -567,11 +595,21 @@ function ResumePanel({ title, candidate, summary }) {
                 </div>
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-1">學歷</p>
+                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-1 flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                  </svg>
+                  學歷
+                </p>
                 <p className="text-gray-800 text-sm">{candidate.education}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-2">工作經歷</p>
+                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-2 flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  工作經歷
+                </p>
                 {candidate.experience.map((exp, i) => (
                   <div key={i} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
                     <p className="font-semibold text-gray-800 text-sm">{exp.title}</p>
@@ -600,6 +638,9 @@ function ResumePanel({ title, candidate, summary }) {
       <div className="border-t border-gray-200 p-4">
         <div className="summary-block">
           <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
             助手摘要
           </p>
           <p className="text-sm text-gray-700 leading-relaxed">{summary || 'XXXXXXXXXXXXXX'}</p>
@@ -631,6 +672,9 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
       <div className="bg-[#2d3b6b] text-white px-5 py-3 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
         <h3 className="font-bold">對話助手</h3>
       </div>
 
@@ -638,10 +682,16 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
       <div className="p-3">
         {successText ? (
           <div className="success-prompt animate-fade-in">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
             <span>{successText}</span>
           </div>
         ) : guideText ? (
           <div className="guide-prompt animate-fade-in">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
             <span>{guideText}</span>
           </div>
         ) : null}
@@ -788,7 +838,11 @@ function Screen_1_2_2_3({ onComplete }) {
             {phase === 'read' && (
               <>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">1</div>
+                  <div className="w-9 h-9 rounded-full bg-amber-500 flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 1 / 3 ── 請閱讀履歷</h2>
                 </div>
                 <p className="text-gray-700 text-sm mb-2">請先瀏覽中間欄位的候選人履歷內容。</p>
@@ -801,7 +855,11 @@ function Screen_1_2_2_3({ onComplete }) {
             {phase === 'tag' && (
               <>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-7 h-7 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">2</div>
+                  <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 2 / 3 ── 快速發問</h2>
                 </div>
                 <p className="text-gray-700 text-sm mb-6">請點選左方欄位中任一「快速發問」標籤，體驗快速發問功能。</p>
@@ -813,7 +871,11 @@ function Screen_1_2_2_3({ onComplete }) {
             {phase === 'type' && (
               <>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-7 h-7 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">3</div>
+                  <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 3 / 3 ── 輸入問題</h2>
                 </div>
                 <p className="text-gray-700 text-sm mb-6">請在右方對話欄位輸入：「這個應徵者叫什麼名字？」</p>
@@ -838,21 +900,39 @@ function Screen_1_2_2_3({ onComplete }) {
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column */}
         <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
-          <div className="bg-[#2d3b6b] text-white px-4 py-3 rounded-t-2xl">
+          <div className="bg-[#2d3b6b] text-white px-4 py-3 rounded-t-2xl flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
             <h2 className="text-sm font-bold">任務資訊</h2>
           </div>
           <div className="flex flex-col gap-3 p-3">
             <div className="role-reminder-block">
-              <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70">你的角色</p>
+              <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                你的角色
+              </p>
               <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
             </div>
             <div className="task-reminder-block">
-              <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
+              <p className="text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-1" style={{ color: 'var(--text-secondary)' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+                任務提醒
+              </p>
               <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
             </div>
             {/* Quick tags */}
             <div className="flex flex-col gap-2">
-              <p className="text-xs font-bold uppercase tracking-wider text-gray-400">快速發問</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                快速發問
+              </p>
               {tutorialQuickTags.map((tag, i) => (
                 <button
                   key={i}
@@ -951,7 +1031,15 @@ function RatingSlider({ rating, setRating, hasInteracted, setHasInteracted, onSu
 
   return (
     <div className="animate-fade-in-up">
-      <h4 className="text-base font-bold text-gray-800 mb-6 text-center">{questionText}</h4>
+      <h4 className="text-base font-bold text-gray-800 mb-6 text-center flex items-center justify-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+        {questionText}
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      </h4>
       <div className="relative mb-2">
         {/* Current value display */}
         <div className="flex justify-center mb-3">
@@ -1004,6 +1092,11 @@ function Screen_1_2_5({ onNext }) {
     <div className="flex items-center justify-center min-h-[80vh]">
       <div className="card-screen text-center border border-gray-200">
         <div className="mb-6">
+          <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
           <h1 className="text-2xl font-bold text-gray-800">教學完成</h1>
         </div>
         <p className="text-gray-700 leading-relaxed text-lg mb-8">
@@ -1026,6 +1119,9 @@ function Screen_2_1_1({ onNext }) {
       <div className="card-screen">
         <div className="card-header">
           <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#2d3b6b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
             正式評選
           </h1>
         </div>
@@ -1162,21 +1258,39 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column: Role / Task reminder + Quick tags */}
         <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
-          <div className="bg-[#2d3b6b] text-white px-4 py-3 rounded-t-2xl">
+          <div className="bg-[#2d3b6b] text-white px-4 py-3 rounded-t-2xl flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
             <h2 className="text-sm font-bold">任務資訊</h2>
           </div>
           <div className="flex flex-col gap-3 p-3">
             <div className="role-reminder-block">
-              <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70">你的角色</p>
+              <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                你的角色
+              </p>
               <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
             </div>
             <div className="task-reminder-block">
-              <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>任務提醒</p>
+              <p className="text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-1" style={{ color: 'var(--text-secondary)' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+                任務提醒
+              </p>
               <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
             </div>
             {/* Quick tags */}
             <div className="flex flex-col gap-2">
-              <p className="text-xs font-bold uppercase tracking-wider text-gray-400">快速發問</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                快速發問
+              </p>
               {QUICK_TAGS.map((tag, i) => (
                 <button
                   key={i}
@@ -1298,6 +1412,11 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
       <div className="max-w-2xl w-full">
         {/* Header */}
         <div className="text-center mb-8">
+          <div className="w-20 h-20 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-11 w-11 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </div>
           <h1 className="text-3xl font-bold text-gray-900">實驗已完成，謝謝您的參與！請直接關閉此視窗即可</h1>
           <p className="text-gray-500 mt-2">以下是您的評選結果摘要。</p>
         </div>

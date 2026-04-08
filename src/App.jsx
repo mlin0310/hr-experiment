@@ -287,7 +287,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-<div className="w-full animate-fade-in-up">
+      <div className="w-full animate-fade-in-up">
         {renderScreen()}
       </div>
     </div>
@@ -519,9 +519,32 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
 // ============================================================
 function Screen_1_2_1({ showModal, onCloseModal }) {
   return (
-    <>
+    <div className="w-full">
+      <div className="flex gap-4 opacity-30 pointer-events-none min-h-screen p-4">
+        <div className="w-[45%] bg-white rounded-2xl p-6 border border-gray-200">
+          <h3 className="text-lg font-bold text-gray-400 mb-4">履歷內容</h3>
+          <div className="space-y-2">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="h-4 bg-gray-200 rounded w-full" style={{ width: `${70 + Math.random() * 30}%` }}></div>
+            ))}
+          </div>
+        </div>
+        <div className="w-[55%] bg-white rounded-2xl p-6 border border-gray-200">
+          <h3 className="text-lg font-bold text-gray-400 mb-4">助手摘要</h3>
+          <div className="space-y-2 mb-4">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="h-4 bg-gray-200 rounded" style={{ width: `${60 + Math.random() * 40}%` }}></div>
+            ))}
+          </div>
+          <div className="h-48 bg-gray-100 rounded-xl"></div>
+        </div>
+      </div>
+
+      {/* Modal */}
       {showModal && (
-        <div className="modal-overlay">
+        // ✅ modal-overlay 必須是 fixed inset-0，才能真正蓋滿整個視窗
+        // 如果你的 .modal-overlay CSS 不是 fixed，在這裡直接 inline 寫死
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
           <div className="modal-card animate-fade-in-up">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-9 h-9 rounded-full bg-[#2d3b6b] flex items-center justify-center flex-shrink-0">
@@ -545,7 +568,7 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
@@ -817,10 +840,10 @@ function Screen_1_2_2_3({ onComplete }) {
               <>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-9 h-9 rounded-full bg-amber-500 flex items-center justify-center flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 1 / 3 ── 請閱讀履歷</h2>
                 </div>
                 <p className="text-gray-700 text-sm mb-2">請先瀏覽中間欄位的候選人履歷內容。</p>
@@ -834,10 +857,10 @@ function Screen_1_2_2_3({ onComplete }) {
               <>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 2 / 3 ── 快速發問</h2>
                 </div>
                 <p className="text-gray-700 text-sm mb-6">請點選左方欄位中任一「快速發問」標籤，體驗快速發問功能。</p>
@@ -850,10 +873,10 @@ function Screen_1_2_2_3({ onComplete }) {
               <>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-                </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                  </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 3 / 3 ── 輸入問題</h2>
                 </div>
                 <p className="text-gray-700 text-sm mb-6">請在右方對話欄位輸入：「這個應徵者叫什麼名字？」</p>

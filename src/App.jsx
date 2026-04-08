@@ -708,22 +708,19 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, successText, ac
 function Screen_1_2_2_3({ onComplete }) {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
-  // phase: 'read' → 'tag' → 'type' → 'done'
+  // phase: 'read' → 'reading' (silent 20s) → 'tag' → 'type' → 'done'
   const [phase, setPhase] = useState('read');
   const [showStepModal, setShowStepModal] = useState(true);
-  const [countdown, setCountdown] = useState(10);
 
-  // Countdown for read phase modal
+  // Silent 20-second wait after user dismisses step 1 modal
   useEffect(() => {
-    if (phase !== 'read' || !showStepModal) return;
-    if (countdown <= 0) {
+    if (phase !== 'reading') return;
+    const t = setTimeout(() => {
       setPhase('tag');
       setShowStepModal(true);
-      return;
-    }
-    const t = setTimeout(() => setCountdown(c => c - 1), 1000);
+    }, 20000);
     return () => clearTimeout(t);
-  }, [phase, showStepModal, countdown]);
+  }, [phase]);
 
   const tutorialQuickTags = [
     {
@@ -775,8 +772,6 @@ function Screen_1_2_2_3({ onComplete }) {
     ],
   };
 
-  const readProgressPct = ((10 - countdown) / 10) * 100;
-
   return (
     <div className="w-full max-w-[95vw] mx-auto flex flex-col" style={{ height: 'calc(100vh - 2rem)' }}>
 
@@ -790,12 +785,10 @@ function Screen_1_2_2_3({ onComplete }) {
                   <div className="w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">1</div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 1 / 3 ── 請閱讀履歷</h2>
                 </div>
-                <p className="text-gray-700 text-sm mb-5">請先瀏覽中間欄位的候選人履歷內容。視窗將在倒數結束後自動關閉。</p>
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-amber-500 rounded-full transition-all duration-1000 ease-linear" style={{ width: `${readProgressPct}%` }} />
-                  </div>
-                  <span className="text-2xl font-bold text-amber-500 tabular-nums w-8 text-right">{countdown}</span>
+                <p className="text-gray-700 text-sm mb-2">請先瀏覽中間欄位的候選人履歷內容。</p>
+                <p className="text-sm font-bold mb-6" style={{ color: '#8b0000' }}>按下確認後，您將有 20 秒的時間進行閱讀。</p>
+                <div className="flex justify-end">
+                  <button className="btn-primary" onClick={() => { setPhase('reading'); setShowStepModal(false); }}>確認，開始閱讀</button>
                 </div>
               </>
             )}

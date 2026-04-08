@@ -756,8 +756,10 @@ function Screen_1_2_2_3({ onComplete }) {
       setMessages(prev => [...prev, { role: 'bot', text: '這位應徵者的名字是周小明。' }]);
       setIsTyping(false);
       setPhase('done');
-      setShowStepModal(true);
-      setTimeout(() => onComplete(), 2000);
+      setTimeout(() => {
+        setShowStepModal(true);
+        setTimeout(() => onComplete(), 2500);
+      }, 2500);
     }, 800);
   };
 

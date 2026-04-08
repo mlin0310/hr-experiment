@@ -1,5 +1,5 @@
 // ============================================================
-// 目前版本：Branch B (有不確定性語氣)
+// 目前版本：Branch A (無不確定性語氣)
 // ============================================================
 import { useState, useEffect, useRef, useCallback } from 'react';
 
@@ -116,28 +116,18 @@ const CANDIDATES = [
 // ============================================================
 const SUMMARIES = {
   groupA: [
-    "年紀太大（56歲）、思維定型",
-    "年紀太大（52歲）、難以適應環境",
-    "年輕（30歲）、具有良好的心態",
-    "年輕（32歲）、想法跟得上",
+    "此應徵者年紀太大（56歲），思維已經定型。",
+    "此應徵者年紀太大（52歲），難以適應新環境。",
+    "此應徵者年輕（30歲），具有良好的心態。",
+    "此應徵者年輕（32歲），想法跟得上團隊。",
   ],
   groupB: [
-    "可能的年紀問題（56歲）、思維可能固化",
-    "可能的年紀問題（52歲）、也許有點難適應環境",
-    "也許為年輕（30歲）、經歷可能合適",
-    "還蠻年輕（32歲）、可能得以適應開發環境",
+    "此應徵者年紀太大（56歲），思維已經定型。",
+    "此應徵者年紀太大（52歲），難以適應新環境。",
+    "此應徵者年輕（30歲），具有良好的心態。",
+    "此應徵者年輕（32歲），想法跟得上團隊。",
   ],
 };
-
-// ============================================================
-// 佔位回覆（正式評選用）
-// ============================================================
-const PLACEHOLDER_RESPONSES = [
-  "這位候選人的思維似乎比較定型。",
-  "根據履歷，此應徵者適應力可能有點令人擔憂。",
-  "此候選人心態或許算良好，大概很有潛力。",
-  "從履歷來看，此應徵者想法似乎跟得上。",
-];
 
 // ============================================================
 // 工具函式
@@ -529,9 +519,30 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
 // ============================================================
 function Screen_1_2_1({ showModal, onCloseModal }) {
   return (
-    <>
+    <div className="w-full">
+      <div className="flex gap-4 opacity-30 pointer-events-none min-h-screen p-4">
+        <div className="w-[45%] bg-white rounded-2xl p-6 border border-gray-200">
+          <h3 className="text-lg font-bold text-gray-400 mb-4">履歷內容</h3>
+          <div className="space-y-2">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="h-4 bg-gray-200 rounded w-full" style={{ width: `${70 + Math.random() * 30}%` }}></div>
+            ))}
+          </div>
+        </div>
+        <div className="w-[55%] bg-white rounded-2xl p-6 border border-gray-200">
+          <h3 className="text-lg font-bold text-gray-400 mb-4">助手摘要</h3>
+          <div className="space-y-2 mb-4">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="h-4 bg-gray-200 rounded" style={{ width: `${60 + Math.random() * 40}%` }}></div>
+            ))}
+          </div>
+          <div className="h-48 bg-gray-100 rounded-xl"></div>
+        </div>
+      </div>
+
+      {/* Modal */}
       {showModal && (
-        <div className="modal-overlay">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
           <div className="modal-card animate-fade-in-up">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-9 h-9 rounded-full bg-[#2d3b6b] flex items-center justify-center flex-shrink-0">
@@ -555,7 +566,7 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
@@ -827,10 +838,10 @@ function Screen_1_2_2_3({ onComplete }) {
               <>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-9 h-9 rounded-full bg-amber-500 flex items-center justify-center flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 1 / 3 ── 請閱讀履歷</h2>
                 </div>
                 <p className="text-gray-700 text-sm mb-2">請先瀏覽中間欄位的候選人履歷內容。</p>
@@ -844,10 +855,10 @@ function Screen_1_2_2_3({ onComplete }) {
               <>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 2 / 3 ── 快速發問</h2>
                 </div>
                 <p className="text-gray-700 text-sm mb-6">請點選左方欄位中任一「快速發問」標籤，體驗快速發問功能。</p>
@@ -860,10 +871,10 @@ function Screen_1_2_2_3({ onComplete }) {
               <>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-                </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                  </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 3 / 3 ── 輸入問題</h2>
                 </div>
                 <p className="text-gray-700 text-sm mb-6">請在右方對話欄位輸入：「這個應徵者叫什麼名字？」</p>

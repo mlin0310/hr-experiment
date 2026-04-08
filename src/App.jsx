@@ -612,7 +612,7 @@ function ResumePanel({ title, candidate, summary }) {
 // ============================================================
 // 共用：聊天右欄元件
 // ============================================================
-function ChatPanel({ guideText, messages, onSend, inputDisabled, successText, actionButton, isTyping: externalTyping }) {
+function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceholder = '已達本輪最大提問次數', successText, actionButton, isTyping: externalTyping }) {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef(null);
@@ -686,7 +686,7 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, successText, ac
                   }
                 }
               }}
-              placeholder={inputDisabled ? '已達本輪最大提問次數' : '在此輸入...'}
+              placeholder={inputDisabled ? disabledPlaceholder : '在此輸入...'}
               className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400 transition-all disabled:bg-gray-50 disabled:text-gray-400 text-sm resize-none"
               disabled={inputDisabled || externalTyping}
             />
@@ -878,6 +878,7 @@ function Screen_1_2_2_3({ onComplete }) {
         <div className="w-[38%]">
           <ChatPanel
             guideText={phase === 'type' ? '請輸入：「這個應徵者叫什麼名字？」' : null}
+            disabledPlaceholder=""
             messages={messages}
             onSend={handleSend}
             inputDisabled={phase !== 'type' || isTyping}

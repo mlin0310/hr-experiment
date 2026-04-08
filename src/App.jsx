@@ -423,7 +423,7 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
   return (
     <div className="max-w-2xl mx-auto">
       {/* Header */}
-      <div className="bg-gray-700 text-white rounded-t-2xl px-6 py-3.5">
+      <div className="bg-[#2d3b6b] text-white rounded-t-2xl px-6 py-3.5">
         <h2 className="text-base font-bold flex items-center gap-2">
           新手教學
         </h2>
@@ -491,7 +491,7 @@ function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHis
             <button
               onClick={handleSend}
               disabled={!inputValue.trim() || isTyping}
-              className="bg-gray-700 text-white p-2.5 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="bg-[#2d3b6b] text-white p-2.5 rounded-xl hover:bg-[#1e2d5a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
@@ -562,7 +562,7 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
 function ResumePanel({ title, candidate, summary }) {
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="bg-gray-700 text-white px-5 py-3 flex items-center gap-2">
+      <div className="bg-[#2d3b6b] text-white px-5 py-3 flex items-center gap-2">
         <h3 className="font-bold">{title}</h3>
       </div>
       <div className="flex-1 overflow-y-auto p-5 space-y-4">
@@ -640,7 +640,7 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
 
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="bg-gray-700 text-white px-5 py-3 flex items-center gap-2">
+      <div className="bg-[#2d3b6b] text-white px-5 py-3 flex items-center gap-2">
         <h3 className="font-bold">對話助手</h3>
       </div>
 
@@ -703,7 +703,7 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
             <button
               onClick={handleSend}
               disabled={!inputValue.trim() || inputDisabled || externalTyping}
-              className="bg-gray-700 text-white p-2.5 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="bg-[#2d3b6b] text-white p-2.5 rounded-xl hover:bg-[#1e2d5a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
@@ -846,7 +846,7 @@ function Screen_1_2_2_3({ onComplete }) {
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column */}
         <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
-          <div className="bg-gray-700 text-white px-4 py-3 rounded-t-2xl">
+          <div className="bg-[#2d3b6b] text-white px-4 py-3 rounded-t-2xl">
             <h2 className="text-sm font-bold">任務資訊</h2>
           </div>
           <div className="flex flex-col gap-3 p-3">
@@ -926,7 +926,7 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
       </div>
       <div className="w-[55%]">
         <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-          <div className="bg-gray-700 text-white px-5 py-3 flex items-center gap-2">
+          <div className="bg-[#2d3b6b] text-white px-5 py-3 flex items-center gap-2">
             <h3 className="font-bold">對話助手</h3>
           </div>
           <div className="flex-1 overflow-y-auto p-4 flex items-center justify-center">
@@ -1170,7 +1170,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column: Role / Task reminder + Quick tags */}
         <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
-          <div className="bg-gray-700 text-white px-4 py-3 rounded-t-2xl">
+          <div className="bg-[#2d3b6b] text-white px-4 py-3 rounded-t-2xl">
             <h2 className="text-sm font-bold">任務資訊</h2>
           </div>
           <div className="flex flex-col gap-3 p-3">
@@ -1250,7 +1250,7 @@ function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
         </div>
         <div className="w-[55%]">
           <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-            <div className="bg-gray-700 text-white px-5 py-3 flex items-center gap-2">
+            <div className="bg-[#2d3b6b] text-white px-5 py-3 flex items-center gap-2">
               <h3 className="font-bold">對話助手</h3>
             </div>
             {/* Previous messages */}

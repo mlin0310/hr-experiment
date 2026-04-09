@@ -162,7 +162,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   // Tutorial chat states
-  const [tutorialStep, setTutorialStep] = useState(0); // for 1-1-4/1-1-5
   const [tutorialDualStep, setTutorialDualStep] = useState(0); // for 1-2-2/1-2-3
 
   const navigateTo = useCallback((screen) => {
@@ -173,21 +172,7 @@ export default function App() {
   const renderScreen = () => {
     switch (currentScreen) {
       case '1-1-1': return <Screen_1_1_1 onNext={() => navigateTo('1-1-2')} />;
-      case '1-1-2': return <Screen_1_1_2 onNext={() => navigateTo('1-1-3')} />;
-      case '1-1-3': return <Screen_1_1_3 onNext={() => navigateTo('1-1-4')} />;
-      case '1-1-4':
-        return (
-          <Screen_1_1_4_5
-            tutorialStep={tutorialStep}
-            setTutorialStep={setTutorialStep}
-            chatHistory={chatHistory}
-            setChatHistory={setChatHistory}
-            onComplete={() => {
-              setShowModal(true);
-              navigateTo('1-2-1');
-            }}
-          />
-        );
+      case '1-1-2': return <Screen_1_1_2 onNext={() => { setShowModal(true); navigateTo('1-2-1'); }} />;
       case '1-2-1':
         return (
           <Screen_1_2_1
@@ -349,166 +334,6 @@ function Screen_1_1_2({ onNext }) {
         <div className="flex justify-end">
           <button className="btn-primary" onClick={onNext}>下一步</button>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================
-// 畫面 1-1-3：教學入口
-// ============================================================
-function Screen_1_1_3({ onNext }) {
-  return (
-    <div className="flex items-center justify-center min-h-[80vh]">
-      <div className="card-screen text-center">
-        <div className="mb-6">
-          <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-800">新手教學</h1>
-        </div>
-        <p className="text-gray-600 leading-relaxed text-lg mb-4">
-          以下將為您展示如何使用這個對話機器人。
-        </p>
-        <p className="text-lg font-bold mb-8" style={{ color: '#8b0000' }}>
-          以下請依照提示操作一遍
-        </p>
-        <button className="btn-primary" onClick={onNext}>下一步</button>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================
-// 畫面 1-1-4 & 1-1-5：練習對話（合併）
-// ============================================================
-function Screen_1_1_4_5({ tutorialStep, setTutorialStep, chatHistory, setChatHistory, onComplete }) {
-  const [inputValue, setInputValue] = useState('');
-  const [messages, setMessages] = useState([]);
-  const [isTyping, setIsTyping] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const chatEndRef = useRef(null);
-
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
-
-  const guideTexts = [
-    '開始聊天吧！請輸入：「您好」',
-    '請輸入：「你的功能是什麼?」',
-  ];
-  const botReplies = ['您好', '我是一名履歷分析師'];
-
-  const handleSend = () => {
-    if (!inputValue.trim() || isTyping || showSuccess) return;
-    const userMsg = inputValue.trim();
-    setInputValue('');
-
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
-    setIsTyping(true);
-
-    setTimeout(() => {
-      setMessages(prev => [...prev, { role: 'bot', text: botReplies[tutorialStep] }]);
-      setIsTyping(false);
-
-      if (tutorialStep === 0) {
-        setTutorialStep(1);
-      } else {
-        setShowSuccess(true);
-      }
-    }, 800);
-  };
-
-  return (
-    <div className="max-w-2xl mx-auto">
-      {/* Header */}
-      <div className="bg-[#2d3b6b] text-white rounded-t-2xl px-6 py-3.5">
-        <h2 className="text-base font-bold flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-          </svg>
-          新手教學
-        </h2>
-      </div>
-      {/* Chat area */}
-      <div className="bg-white border-x border-gray-200 flex flex-col" style={{ height: '480px' }}>
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 pt-4 space-y-3">
-          {messages.map((msg, i) => (
-            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
-              <div className={msg.role === 'user' ? 'chat-bubble-user' : 'chat-bubble-bot'}>
-                {msg.text}
-              </div>
-            </div>
-          ))}
-          {isTyping && (
-            <div className="flex justify-start animate-fade-in">
-              <div className="chat-bubble-bot flex gap-1 items-center py-3">
-                <span className="typing-dot w-2 h-2 bg-gray-400 rounded-full inline-block"></span>
-                <span className="typing-dot w-2 h-2 bg-gray-400 rounded-full inline-block"></span>
-                <span className="typing-dot w-2 h-2 bg-gray-400 rounded-full inline-block"></span>
-              </div>
-            </div>
-          )}
-          <div ref={chatEndRef} />
-        </div>
-      </div>
-
-      {/* Input area */}
-      <div className="bg-white border border-gray-200 rounded-b-2xl p-4 shadow-lg">
-        {/* Guide / Success prompt — above the input box */}
-        <div className="mb-3">
-          {!showSuccess ? (
-            <div className="guide-prompt animate-fade-in text-base">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-              <span>{guideTexts[tutorialStep]}</span>
-            </div>
-          ) : (
-            <div className="success-prompt animate-fade-in text-base">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>謝謝您完成練習階段教學，請接續完成正式階段教學。</span>
-            </div>
-          )}
-        </div>
-        {showSuccess ? (
-          <div className="flex justify-center">
-            <button className="btn-primary" onClick={onComplete}>點此進入</button>
-          </div>
-        ) : (
-          <div className="flex gap-2">
-            <textarea
-              rows={2}
-              value={inputValue}
-              onChange={e => setInputValue(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  if (inputValue.endsWith('\n')) {
-                    e.preventDefault();
-                    handleSend();
-                  }
-                }
-              }}
-              placeholder="在此輸入..."
-              className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400 transition-all resize-none"
-              disabled={isTyping}
-            />
-            <button
-              onClick={handleSend}
-              disabled={!inputValue.trim() || isTyping}
-              className="bg-[#2d3b6b] text-white p-2.5 rounded-xl hover:bg-[#1e2d5a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-              </svg>
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -1046,14 +1046,8 @@ function RatingSlider({ rating, setRating, hasInteracted, setHasInteracted, onSu
 
   return (
     <div className="animate-fade-in-up">
-      <h4 className="text-base font-bold text-gray-800 mb-6 text-center flex items-center justify-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
+      <h4 className="text-base font-bold text-gray-800 mb-6 text-center">
         {questionText}
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
       </h4>
       <div className="relative mb-2">
         {/* Current value display */}
@@ -1355,7 +1349,7 @@ function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
         <div className="w-[55%]">
           <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
             <div className="bg-[#2d3b6b] text-white px-5 py-3 flex items-center gap-2">
-              <h3 className="font-bold">對話助手</h3>
+              <h3 className="font-bold">評分助手</h3>
             </div>
             {/* Previous messages */}
             <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">

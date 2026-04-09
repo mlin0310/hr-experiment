@@ -1254,8 +1254,30 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
           第 {round + 1} / 4 位候選人
         </span>
       </div>
+      {/* Quick tags — same level as column row, aligned to the right */}
+      <div className="flex justify-end mb-2">
+        <div className="w-[38%] flex flex-row gap-2 bg-white rounded-2xl border border-gray-200 shadow-sm px-3 py-2 items-center flex-wrap">
+          <p className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1 mr-1">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            快速發問
+          </p>
+          {QUICK_TAGS.map((tag, i) => (
+            <button
+              key={i}
+              onClick={() => handleQuickTag(tag)}
+              disabled={questionCount >= maxQuestions || isTyping}
+              className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
+            >
+              {tag.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="flex gap-4 flex-1 min-h-0">
-        {/* Left column: Role / Task reminder + Quick tags */}
+        {/* Left column: Role / Task reminder */}
         <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
           <div className="bg-[#2d3b6b] text-white px-4 py-3 rounded-t-2xl flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -1263,7 +1285,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
             </svg>
             <h2 className="text-sm font-bold">任務資訊</h2>
           </div>
-          <div className="flex flex-col gap-3 p-3">
+          <div className="flex flex-col gap-2 p-2">
             <div className="role-reminder-block">
               <p className="text-xs font-bold uppercase tracking-wider mb-1 opacity-70 flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -1274,32 +1296,13 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
               <p className="text-sm font-medium">你是一名 HR，任務是招募一位設計師。</p>
             </div>
             <div className="task-reminder-block">
-              <p className="text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-1" style={{ color: 'var(--text-secondary)' }}>
+              <p className="text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-1" style={{ color: 'var(--text-secondary)' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                 </svg>
                 任務提醒
               </p>
               <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
-            </div>
-            {/* Quick tags */}
-            <div className="flex flex-col gap-2">
-              <p className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                快速發問
-              </p>
-              {QUICK_TAGS.map((tag, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleQuickTag(tag)}
-                  disabled={questionCount >= maxQuestions || isTyping}
-                  className="text-left text-sm px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
-                >
-                  {tag.label}
-                </button>
-              ))}
             </div>
           </div>
         </div>
@@ -1314,7 +1317,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
         </div>
 
         {/* Right column: Chat */}
-        <div className="w-[38%]">
+        <div className="w-[38%] h-full min-h-0">
           <ChatPanel
             guideText={questionCount < maxQuestions ? `剩餘 ${maxQuestions - questionCount} 次提問機會` : null}
             successText={questionCount >= maxQuestions ? '已達本輪最大提問次數，即將進入評分...' : null}

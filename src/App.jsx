@@ -914,7 +914,7 @@ function Screen_1_2_2_3({ onComplete }) {
 
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column */}
-        <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
+        <div className="w-[22%] self-start bg-white rounded-2xl border border-gray-200 shadow-sm">
           <div className="bg-[#2d3b6b] text-white px-4 py-3 rounded-t-2xl flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -1272,7 +1272,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
       </div>
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column: Role / Task reminder */}
-        <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
+        <div className="w-[22%] self-start bg-white rounded-2xl border border-gray-200 shadow-sm">
           <div className="bg-[#2d3b6b] text-white px-4 py-3 rounded-t-2xl flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />

@@ -654,7 +654,7 @@ function ResumePanel({ title, candidate, summary }) {
 // ============================================================
 // 共用：聊天右欄元件
 // ============================================================
-function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceholder = '已達本輪最大提問次數', successText, actionButton, isTyping: externalTyping }) {
+function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceholder = '已達本輪最大提問次數', successText, actionButton, isTyping: externalTyping, quickTags, onQuickTag }) {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef(null);
@@ -719,8 +719,24 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
         <div ref={chatEndRef} />
       </div>
 
+      {/* Quick tags */}
+      {quickTags && quickTags.length > 0 && (
+        <div className="px-3 pt-2 flex flex-row flex-wrap gap-2">
+          {quickTags.map((tag, i) => (
+            <button
+              key={i}
+              onClick={() => onQuickTag(tag)}
+              disabled={inputDisabled || externalTyping}
+              className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
+            >
+              {tag.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Input */}
-      <div className="border-t border-gray-200 p-3">
+      <div className="border-t border-gray-200 p-3 mt-2">
         {actionButton ? (
           <div className="flex justify-center">{actionButton}</div>
         ) : (
@@ -1256,28 +1272,6 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
           第 {round + 1} / 4 位候選人
         </span>
       </div>
-      {/* Quick tags — same level as column row, aligned to the right */}
-      <div className="flex justify-end mb-2">
-        <div className="w-[38%] flex flex-row gap-2 bg-white rounded-2xl border border-gray-200 shadow-sm px-3 py-2 items-center flex-wrap">
-          <p className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1 mr-1">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            快速發問
-          </p>
-          {QUICK_TAGS.map((tag, i) => (
-            <button
-              key={i}
-              onClick={() => handleQuickTag(tag)}
-              disabled={questionCount >= maxQuestions || isTyping}
-              className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
-            >
-              {tag.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column: Role / Task reminder */}
         <div className="w-[22%] h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-y-auto">
@@ -1327,6 +1321,8 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
             onSend={handleSend}
             inputDisabled={questionCount >= maxQuestions}
             isTyping={isTyping}
+            quickTags={QUICK_TAGS}
+            onQuickTag={handleQuickTag}
           />
         </div>
       </div>

@@ -317,15 +317,19 @@ function Screen_1_1_2({ onNext }) {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            新手教學
+            實驗說明
           </h1>
         </div>
-        <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-base font-medium">
-          <p>親愛的受試者您好，現在將進入模擬實際操作的教學階段。</p>
-          <p>畫面<strong>左方</strong>為本次系統測試的<strong>任務提醒</strong>，提示您的角色與每位候選人的提問限制。</p>
-          <p>畫面<strong>中間</strong>呈現候選人的<strong>履歷</strong>與 <strong>AI 摘要</strong>，請先閱讀履歷內容，再參閱 AI 所提供的摘要。</p>
-          <p>畫面<strong>右方</strong>為對話區塊，供您針對候選人資訊進行提問，每位候選人共有 <strong>2 次</strong>提問機會。提問結束後，請依據所獲得的資訊，對該候選人給予 <strong>1 至 5 分</strong>的評分。若您暫無詢問方向，亦可點選對話框上方的<strong>快速發問標籤</strong>。請注意，<strong>快速發問同樣計入提問次數</strong>。</p>
-          <p className="font-bold text-center" style={{ color: '#8b0000' }}>現在請依照提示開始操作。</p>
+        <div className="space-y-5 mb-8">
+          <p className="text-gray-900 leading-relaxed text-base font-medium">
+            本公司近期與政治大學合作推出一款履歷分析助手，您將扮演一位 HR 與此助手合作，並進行第一階段人選的篩選工作。
+          </p>
+          <p className="text-gray-900 leading-relaxed text-base font-medium">
+            而我們近期正在徵選一位設計師，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
+          </p>
+          <p className="text-gray-700 leading-relaxed text-sm bg-gray-50 rounded-lg p-3 border border-gray-200">
+            在閱讀完此敘述後，請按下一步進入新手教學。
+          </p>
         </div>
         <div className="flex justify-end">
           <button className="btn-primary" onClick={onNext}>下一步</button>
@@ -363,8 +367,6 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
 
       {/* Modal */}
       {showModal && (
-        // ✅ modal-overlay 必須是 fixed inset-0，才能真正蓋滿整個視窗
-        // 如果你的 .modal-overlay CSS 不是 fixed，在這裡直接 inline 寫死
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
           <div className="modal-card animate-fade-in-up">
             <div className="flex items-center gap-3 mb-6">
@@ -376,11 +378,11 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
               <h2 className="text-xl font-bold text-gray-900">正式階段教學</h2>
             </div>
             <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-base font-medium">
-              <p>親愛的受試者您好，現在將進入模擬實際操作的正式教學階段。</p>
+              <p>親愛的受試者您好，現在將進入模擬實際操作的教學階段。</p>
               <p>畫面<strong>左方</strong>為本次系統測試的<strong>任務提醒</strong>，提示您的角色與每位候選人的提問限制。</p>
               <p>畫面<strong>中間</strong>呈現候選人的<strong>履歷</strong>與 <strong>AI 摘要</strong>，請先閱讀履歷內容，再參閱 AI 所提供的摘要。</p>
               <p>畫面<strong>右方</strong>為對話區塊，供您針對候選人資訊進行提問，每位候選人共有 <strong>2 次</strong>提問機會。提問結束後，請依據所獲得的資訊，對該候選人給予 <strong>1 至 5 分</strong>的評分。若您暫無詢問方向，亦可點選對話框上方的<strong>快速發問標籤</strong>。請注意，<strong>快速發問同樣計入提問次數</strong>。</p>
-              <p className="font-bold" style={{ color: '#8b0000' }}>現在請依照提示開始操作。</p>
+              <p className="font-bold text-center" style={{ color: '#8b0000' }}>現在請依照提示開始操作。</p>
             </div>
             <div className="flex justify-end">
               <button className="btn-primary" onClick={onCloseModal}>下一步</button>

@@ -375,7 +375,7 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h2 className="text-xl font-bold text-gray-900">正式階段教學</h2>
+              <h2 className="text-xl font-bold text-gray-900">階段教學</h2>
             </div>
             <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-base font-medium">
               <p>親愛的受試者您好，現在將進入模擬實際操作的教學階段。</p>

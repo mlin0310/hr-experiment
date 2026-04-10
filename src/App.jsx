@@ -1150,7 +1150,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
                     {`${Math.floor(readCountdown / 60)}:${String(readCountdown % 60).padStart(2, '0')}`}
                   </text>
                 </svg>
-                <span className="text-xs font-medium text-gray-500">閱讀參考時間</span>
+                <span className="text-xs font-medium text-gray-500">後進入下一位評選</span>
               </div>
             )}
           </div>

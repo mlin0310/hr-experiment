@@ -476,7 +476,7 @@ function ResumePanel({ title, candidate, summary }) {
 // ============================================================
 // 共用：聊天右欄元件
 // ============================================================
-function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceholder = '已達本輪最大提問次數', successText, actionButton, isTyping: externalTyping, quickTags, onQuickTag, quickTagsDisabled }) {
+function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceholder = '已達本輪最大提問次數', successText, actionButton, isTyping: externalTyping, quickTags, onQuickTag, quickTagsDisabled, tagsGuideText }) {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef(null);
@@ -523,11 +523,22 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 space-y-3 pb-2">
         {messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
-            <div className={msg.role === 'user' ? 'chat-bubble-user' : 'chat-bubble-bot'}>
-              {msg.text}
+          msg.role === 'summary' ? (
+            <div key={i} className="flex justify-start animate-pop-in">
+              <div className="flex flex-col gap-1 max-w-[85%]">
+                <span className="text-xs font-bold text-indigo-500 px-1">AI摘要</span>
+                <div className="bg-indigo-50 border border-indigo-200 text-indigo-900 rounded-2xl rounded-tl-sm px-4 py-2.5 text-sm leading-relaxed">
+                  {msg.text}
+                </div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
+              <div className={msg.role === 'user' ? 'chat-bubble-user' : 'chat-bubble-bot'}>
+                {msg.text}
+              </div>
+            </div>
+          )
         ))}
         {(isTyping || externalTyping) && (
           <div className="flex justify-start animate-fade-in">
@@ -543,7 +554,16 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
 
       {/* Quick tags */}
       {quickTags && quickTags.length > 0 && (
-        <div className="px-3 pt-2 flex flex-row flex-wrap gap-2">
+        <div className="px-3 pt-2 flex flex-col gap-2">
+        {tagsGuideText && (
+          <div className="guide-prompt animate-fade-in text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+            <span>{tagsGuideText}</span>
+          </div>
+        )}
+        <div className="flex flex-row flex-wrap gap-2">
           {quickTags.map((tag, i) => (
             <button
               key={i}
@@ -554,6 +574,7 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
               {tag.label}
             </button>
           ))}
+        </div>
         </div>
       )}
 
@@ -658,8 +679,12 @@ function Screen_1_2_2_3({ onComplete }) {
     setTimeout(() => {
       setMessages(prev => [...prev, { role: 'bot', text: tag.reply }]);
       setIsTyping(false);
-      setPhase('type');
-      setShowStepModal(true);
+      // Inject AI summary bubble after a short delay
+      setTimeout(() => {
+        setMessages(prev => [...prev, { role: 'summary', text: '具備基礎行政能力，工作經歷穩定。' }]);
+        setPhase('type');
+        setShowStepModal(true);
+      }, 600);
     }, 600);
   };
 
@@ -794,13 +819,12 @@ function Screen_1_2_2_3({ onComplete }) {
 
         {/* Middle column: Resume */}
         <div className="w-[40%]">
-          <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="具備基礎行政能力，工作經歷穩定。" />
+          <ResumePanel title="應徵者一號" candidate={dummyCandidate} />
         </div>
 
         {/* Right column: Chat */}
         <div className="w-[38%]">
           <ChatPanel
-            guideText={phase === 'type' ? '請輸入：「這個應徵者叫什麼名字？」' : null}
             disabledPlaceholder=""
             messages={messages}
             onSend={handleSend}
@@ -809,6 +833,7 @@ function Screen_1_2_2_3({ onComplete }) {
             quickTags={tutorialQuickTags}
             onQuickTag={handleTutorialQuickTag}
             quickTagsDisabled={isTyping || phase !== 'tag'}
+            tagsGuideText={phase === 'type' ? '請輸入：「這個應徵者叫什麼名字？」' : null}
           />
         </div>
       </div>

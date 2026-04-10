@@ -477,7 +477,7 @@ function ResumePanel({ title, candidate, summary }) {
 // ============================================================
 // 共用：聊天右欄元件
 // ============================================================
-function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceholder = '已達本輪最大提問次數', successText, actionButton, isTyping: externalTyping, quickTags, onQuickTag }) {
+function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceholder = '已達本輪最大提問次數', successText, actionButton, isTyping: externalTyping, quickTags, onQuickTag, quickTagsDisabled }) {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef(null);
@@ -549,7 +549,7 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
             <button
               key={i}
               onClick={() => onQuickTag(tag)}
-              disabled={inputDisabled || externalTyping}
+              disabled={quickTagsDisabled !== undefined ? quickTagsDisabled : (inputDisabled || externalTyping)}
               className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
             >
               {tag.label}
@@ -702,7 +702,7 @@ function Screen_1_2_2_3({ onComplete }) {
                   </div>
                   <h2 className="text-lg font-bold text-gray-900">步驟 2 / 3 ── 快速發問</h2>
                 </div>
-                <p className="text-gray-700 text-sm mb-6">請點選左方欄位中任一「快速發問」標籤，體驗快速發問功能。</p>
+                <p className="text-gray-700 text-sm mb-6">請點選右方對話欄位中任一「快速發問」標籤，體驗快速發問功能。</p>
                 <div className="flex justify-end">
                   <button className="btn-primary" onClick={() => setShowStepModal(false)}>了解，開始操作</button>
                 </div>
@@ -765,29 +765,6 @@ function Screen_1_2_2_3({ onComplete }) {
               </p>
               <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
             </div>
-            {/* Quick tags */}
-            <div className="flex flex-col gap-2">
-              <p className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                快速發問
-              </p>
-              {tutorialQuickTags.map((tag, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleTutorialQuickTag(tag)}
-                  disabled={isTyping || phase !== 'tag'}
-                  className={`text-left text-sm px-3 py-2 rounded-lg border transition-colors leading-snug
-                    ${phase === 'tag'
-                      ? 'border-blue-300 bg-blue-50 hover:bg-blue-100 ring-2 ring-blue-200 animate-pulse'
-                      : 'border-gray-200 bg-gray-50'}
-                    disabled:opacity-40 disabled:cursor-not-allowed`}
-                >
-                  {tag.label}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
 
@@ -805,6 +782,9 @@ function Screen_1_2_2_3({ onComplete }) {
             onSend={handleSend}
             inputDisabled={phase !== 'type' || isTyping}
             isTyping={isTyping}
+            quickTags={tutorialQuickTags}
+            onQuickTag={handleTutorialQuickTag}
+            quickTagsDisabled={isTyping || phase !== 'tag'}
           />
         </div>
       </div>

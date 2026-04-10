@@ -744,24 +744,6 @@ function Screen_1_2_2_3({ onComplete }) {
         </div>
       )}
 
-      {/* Countdown timer during reading phase */}
-      {phase === 'reading' && (
-        <div className="flex justify-center mb-3">
-          <div className="flex items-center gap-3 bg-white border border-gray-200 shadow-sm rounded-full px-5 py-2">
-            <svg className="w-10 h-10 -rotate-90" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" strokeWidth="3" />
-              <circle
-                cx="18" cy="18" r="15.9" fill="none"
-                stroke="#2d3b6b" strokeWidth="3"
-                strokeDasharray={`${(countdown / 20) * 100} 100`}
-                strokeLinecap="round"
-              />
-            </svg>
-            <span className="text-sm font-semibold text-gray-700">{countdown} 秒後進入下一步</span>
-          </div>
-        </div>
-      )}
-
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column */}
         <div className="w-[22%] self-start bg-white rounded-2xl border border-gray-200 shadow-sm">
@@ -790,6 +772,23 @@ function Screen_1_2_2_3({ onComplete }) {
               </p>
               <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
             </div>
+            {/* Countdown timer */}
+            {phase === 'reading' && (
+              <div className="flex flex-col items-center gap-2 pt-2 pb-1">
+                <svg className="w-14 h-14 -rotate-90" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" strokeWidth="3" />
+                  <circle
+                    cx="18" cy="18" r="15.9" fill="none"
+                    stroke="#2d3b6b" strokeWidth="3"
+                    strokeDasharray={`${(countdown / 20) * 100} 100`}
+                    strokeLinecap="round"
+                    style={{ transition: 'stroke-dasharray 0.8s ease' }}
+                  />
+                  <text x="18" y="18" dominantBaseline="middle" textAnchor="middle" fontSize="10" fill="#2d3b6b" fontWeight="bold" style={{ transform: 'rotate(90deg)', transformOrigin: '18px 18px' }}>{countdown}</text>
+                </svg>
+                <span className="text-xs font-medium text-gray-500">秒後進入下一步</span>
+              </div>
+            )}
           </div>
         </div>
 

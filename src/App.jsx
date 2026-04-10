@@ -1019,7 +1019,20 @@ const QUICK_TAGS = [
 function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCount, chatHistory, setChatHistory, group, onQuestionsComplete, sessionId }) {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [readCountdown, setReadCountdown] = useState(180);
   const maxQuestions = 2;
+
+  // 3-minute reading countdown, resets each round
+  useEffect(() => {
+    setReadCountdown(180);
+    const interval = setInterval(() => {
+      setReadCountdown(prev => {
+        if (prev <= 1) { clearInterval(interval); return 0; }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [round]);
 
   useEffect(() => {
     fetch('/api/start_candidate', {
@@ -1121,6 +1134,25 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
               </p>
               <p className="text-sm" style={{ color: 'var(--text-primary)' }}>每位候選人僅能詢問 AI <strong>兩次</strong>問題，請盡可能詢問與<strong>履歷相關</strong>的問題。</p>
             </div>
+            {/* 3-minute countdown */}
+            {readCountdown > 0 && (
+              <div className="flex flex-col items-center gap-2 pt-2 pb-1">
+                <svg className="w-14 h-14 -rotate-90" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" strokeWidth="3" />
+                  <circle
+                    cx="18" cy="18" r="15.9" fill="none"
+                    stroke="#2d3b6b" strokeWidth="3"
+                    strokeDasharray={`${(readCountdown / 180) * 100} 100`}
+                    strokeLinecap="round"
+                    style={{ transition: 'stroke-dasharray 0.8s ease' }}
+                  />
+                  <text x="18" y="18" dominantBaseline="middle" textAnchor="middle" fontSize="7" fill="#2d3b6b" fontWeight="bold" style={{ transform: 'rotate(90deg)', transformOrigin: '18px 18px' }}>
+                    {`${Math.floor(readCountdown / 60)}:${String(readCountdown % 60).padStart(2, '0')}`}
+                  </text>
+                </svg>
+                <span className="text-xs font-medium text-gray-500">閱讀參考時間</span>
+              </div>
+            )}
           </div>
         </div>
 

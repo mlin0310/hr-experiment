@@ -379,12 +379,11 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
               </div>
               <h2 className="text-xl font-bold text-gray-900">正式階段教學</h2>
             </div>
-            <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-center text-base font-medium">
-              <p>親愛的受試者您好，感謝您完成練習階段的教學。現在將進入<strong>模擬實際操作</strong>的正式教學階段。</p>
-              <p>畫面<strong>左方</strong>為本次系統測試的<strong>任務提醒</strong>，下方設有數個<strong>快速詢問標籤</strong>，方便您隨時發問。</p>
-              <p>畫面<strong>中間</strong>區塊呈現候選人的<strong>履歷</strong>與 <strong>AI 摘要</strong>，請先<strong>閱讀履歷</strong>內容，再參閱 AI 所提供的摘要。</p>
-              <p>畫面<strong>右方</strong>區塊供您針對候選人資訊進行提問，每位候選人共有 <strong>2 次</strong>提問機會。提問結束後，請依據所獲得的資訊，對該候選人給予 <strong>1 至 5 分</strong>的評分。</p>
-              <p>若暫無詢問方向，亦可點選左方的<strong>快速發問標籤</strong>。請注意，<strong>快速發問同樣計入提問次數</strong>。</p>
+            <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-base font-medium">
+              <p>親愛的受試者您好，現在將進入模擬實際操作的正式教學階段。</p>
+              <p>畫面<strong>左方</strong>為本次系統測試的<strong>任務提醒</strong>，提示您的角色與每位候選人的提問限制。</p>
+              <p>畫面<strong>中間</strong>呈現候選人的<strong>履歷</strong>與 <strong>AI 摘要</strong>，請先閱讀履歷內容，再參閱 AI 所提供的摘要。</p>
+              <p>畫面<strong>右方</strong>為對話區塊，供您針對候選人資訊進行提問，每位候選人共有 <strong>2 次</strong>提問機會。提問結束後，請依據所獲得的資訊，對該候選人給予 <strong>1 至 5 分</strong>的評分。若您暫無詢問方向，亦可點選對話框上方的<strong>快速發問標籤</strong>。請注意，<strong>快速發問同樣計入提問次數</strong>。</p>
               <p className="font-bold" style={{ color: '#8b0000' }}>現在請依照提示開始操作。</p>
             </div>
             <div className="flex justify-end">

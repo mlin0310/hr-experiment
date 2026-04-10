@@ -604,15 +604,23 @@ function Screen_1_2_2_3({ onComplete }) {
   // phase: 'read' → 'reading' (silent 20s) → 'tag' → 'type' → 'done'
   const [phase, setPhase] = useState('read');
   const [showStepModal, setShowStepModal] = useState(true);
+  const [countdown, setCountdown] = useState(20);
 
   // Silent 20-second wait after user dismisses step 1 modal
   useEffect(() => {
     if (phase !== 'reading') return;
+    setCountdown(20);
+    const interval = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) { clearInterval(interval); return 0; }
+        return prev - 1;
+      });
+    }, 1000);
     const t = setTimeout(() => {
       setPhase('tag');
       setShowStepModal(true);
     }, 20000);
-    return () => clearTimeout(t);
+    return () => { clearTimeout(t); clearInterval(interval); };
   }, [phase]);
 
   const tutorialQuickTags = [
@@ -732,6 +740,24 @@ function Screen_1_2_2_3({ onComplete }) {
                 <p className="text-sm text-gray-500">即將進入評分階段...</p>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Countdown timer during reading phase */}
+      {phase === 'reading' && (
+        <div className="flex justify-center mb-3">
+          <div className="flex items-center gap-3 bg-white border border-gray-200 shadow-sm rounded-full px-5 py-2">
+            <svg className="w-10 h-10 -rotate-90" viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" strokeWidth="3" />
+              <circle
+                cx="18" cy="18" r="15.9" fill="none"
+                stroke="#2d3b6b" strokeWidth="3"
+                strokeDasharray={`${(countdown / 20) * 100} 100`}
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="text-sm font-semibold text-gray-700">{countdown} 秒後進入下一步</span>
           </div>
         </div>
       )}

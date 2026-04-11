@@ -458,17 +458,19 @@ function ResumePanel({ title, candidate, summary }) {
         )}
       </div>
       {/* Summary block */}
-      <div className="border-t border-gray-200 p-4">
-        <div className="summary-block">
-          <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-            </svg>
-            助手摘要
-          </p>
-          <p className="text-sm text-gray-700 leading-relaxed">{summary || 'XXXXXXXXXXXXXX'}</p>
+      {summary && (
+        <div className="border-t border-gray-200 p-4">
+          <div className="summary-block">
+            <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+              助手摘要
+            </p>
+            <p className="text-sm text-gray-700 leading-relaxed">{summary}</p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -679,11 +681,8 @@ function Screen_1_2_2_3({ onComplete }) {
     setTimeout(() => {
       setMessages(prev => [...prev, { role: 'bot', text: tag.reply }]);
       setIsTyping(false);
-      setTimeout(() => {
-        setMessages(prev => [...prev, { role: 'summary', text: '具備基礎行政能力，工作經歷穩定。' }]);
-        setPhase('type');
-        setShowStepModal(true);
-      }, 600);
+      setPhase('type');
+      setShowStepModal(true);
     }, 600);
   };
 
@@ -735,7 +734,10 @@ function Screen_1_2_2_3({ onComplete }) {
                 </div>
                 <p className="text-gray-700 text-sm mb-6">請點選右方對話欄位中任一「快速發問」標籤，體驗快速發問功能。</p>
                 <div className="flex justify-end">
-                  <button className="btn-primary" onClick={() => setShowStepModal(false)}>了解，開始操作</button>
+                  <button className="btn-primary" onClick={() => {
+                    setShowStepModal(false);
+                    setTimeout(() => setMessages(prev => [...prev, { role: 'summary', text: '具備基礎行政能力，工作經歷穩定。' }]), 300);
+                  }}>了解，開始操作</button>
                 </div>
               </>
             )}

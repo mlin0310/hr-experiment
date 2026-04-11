@@ -548,26 +548,26 @@ function ChatPanel({ guideText, messages, onSend, inputDisabled, disabledPlaceho
       {/* Quick tags */}
       {quickTags && quickTags.length > 0 && (
         <div className="px-3 pt-2 flex flex-col gap-2">
-        {tagsGuideText && (
-          <div className="guide-prompt animate-fade-in text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-            </svg>
-            <span>{tagsGuideText}</span>
+          {tagsGuideText && (
+            <div className="guide-prompt animate-fade-in text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+              <span>{tagsGuideText}</span>
+            </div>
+          )}
+          <div className="flex flex-row flex-wrap gap-2">
+            {quickTags.map((tag, i) => (
+              <button
+                key={i}
+                onClick={() => onQuickTag(tag)}
+                disabled={quickTagsDisabled !== undefined ? quickTagsDisabled : (inputDisabled || externalTyping)}
+                className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
+              >
+                {tag.label}
+              </button>
+            ))}
           </div>
-        )}
-        <div className="flex flex-row flex-wrap gap-2">
-          {quickTags.map((tag, i) => (
-            <button
-              key={i}
-              onClick={() => onQuickTag(tag)}
-              disabled={quickTagsDisabled !== undefined ? quickTagsDisabled : (inputDisabled || externalTyping)}
-              className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed leading-snug"
-            >
-              {tag.label}
-            </button>
-          ))}
-        </div>
         </div>
       )}
 

@@ -345,7 +345,7 @@ function Screen_1_1_2({ onNext }) {
 function Screen_1_2_1({ showModal, onCloseModal }) {
   return (
     <div className="w-full">
-      <div className="flex gap-4 opacity-30 pointer-events-none min-h-screen p-4">
+      <div className="fixed inset-0 flex gap-4 opacity-30 pointer-events-none p-4">
         <div className="w-[45%] bg-white rounded-2xl p-6 border border-gray-200">
           <h3 className="text-lg font-bold text-gray-400 mb-4">履歷內容</h3>
           <div className="space-y-2">

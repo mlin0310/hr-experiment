@@ -174,15 +174,7 @@ export default function App() {
       case '1-1-1': return <Screen_1_1_1 onNext={() => navigateTo('1-1-2')} />;
       case '1-1-2': return <Screen_1_1_2 onNext={() => { setShowModal(true); navigateTo('1-2-1'); }} />;
       case '1-2-1':
-        return (
-          <Screen_1_2_1
-            showModal={showModal}
-            onCloseModal={() => {
-              setShowModal(false);
-              navigateTo('1-2-2');
-            }}
-          />
-        );
+        return <Screen_1_2_1 />;
       case '1-2-2':
         return (
           <Screen_1_2_2_3
@@ -275,6 +267,31 @@ export default function App() {
       <div className="w-full animate-fade-in-up">
         {renderScreen()}
       </div>
+      {/* 階段教學 modal — rendered outside animated wrapper so fixed positioning works correctly */}
+      {currentScreen === '1-2-1' && showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+          <div className="modal-card animate-fade-in-up">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-9 h-9 rounded-full bg-[#2d3b6b] flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-bold text-gray-900">階段教學</h2>
+            </div>
+            <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-base font-medium">
+              <p>親愛的受試者您好，現在將進入模擬實際操作的教學階段。</p>
+              <p>畫面<strong>左方</strong>為本次系統測試的<strong>任務提醒</strong>，提示您的角色與每位候選人的提問限制。</p>
+              <p>畫面<strong>中間</strong>呈現候選人的<strong>履歷</strong>與 <strong>AI 摘要</strong>，請先閱讀履歷內容，再參閱 AI 所提供的摘要。</p>
+              <p>畫面<strong>右方</strong>為對話區塊，供您針對候選人資訊進行提問，每位候選人共有 <strong>2 次</strong>提問機會。提問結束後，請依據所獲得的資訊，對該候選人給予 <strong>1 至 5 分</strong>的評分。若您暫無詢問方向，亦可點選對話框上方的<strong>快速發問標籤</strong>。請注意，<strong>快速發問同樣計入提問次數</strong>。</p>
+              <p className="font-bold text-center" style={{ color: '#8b0000' }}>現在請依照提示開始操作。</p>
+            </div>
+            <div className="flex justify-end">
+              <button className="btn-primary" onClick={() => { setShowModal(false); navigateTo('1-2-2'); }}>下一步</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -342,10 +359,10 @@ function Screen_1_1_2({ onNext }) {
 // ============================================================
 // 畫面 1-2-1：正式教學說明 Modal
 // ============================================================
-function Screen_1_2_1({ showModal, onCloseModal }) {
+function Screen_1_2_1() {
   return (
     <div className="w-full">
-      <div className="fixed inset-0 flex gap-4 opacity-30 pointer-events-none p-4">
+      <div className="flex gap-4 opacity-30 pointer-events-none min-h-screen p-4">
         <div className="w-[45%] bg-white rounded-2xl p-6 border border-gray-200">
           <h3 className="text-lg font-bold text-gray-400 mb-4">履歷內容</h3>
           <div className="space-y-2">
@@ -364,32 +381,6 @@ function Screen_1_2_1({ showModal, onCloseModal }) {
           <div className="h-48 bg-gray-100 rounded-xl"></div>
         </div>
       </div>
-
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-          <div className="modal-card animate-fade-in-up">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-9 h-9 rounded-full bg-[#2d3b6b] flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h2 className="text-xl font-bold text-gray-900">階段教學</h2>
-            </div>
-            <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-base font-medium">
-              <p>親愛的受試者您好，現在將進入模擬實際操作的教學階段。</p>
-              <p>畫面<strong>左方</strong>為本次系統測試的<strong>任務提醒</strong>，提示您的角色與每位候選人的提問限制。</p>
-              <p>畫面<strong>中間</strong>呈現候選人的<strong>履歷</strong>與 <strong>AI 摘要</strong>，請先閱讀履歷內容，再參閱 AI 所提供的摘要。</p>
-              <p>畫面<strong>右方</strong>為對話區塊，供您針對候選人資訊進行提問，每位候選人共有 <strong>2 次</strong>提問機會。提問結束後，請依據所獲得的資訊，對該候選人給予 <strong>1 至 5 分</strong>的評分。若您暫無詢問方向，亦可點選對話框上方的<strong>快速發問標籤</strong>。請注意，<strong>快速發問同樣計入提問次數</strong>。</p>
-              <p className="font-bold text-center" style={{ color: '#8b0000' }}>現在請依照提示開始操作。</p>
-            </div>
-            <div className="flex justify-end">
-              <button className="btn-primary" onClick={onCloseModal}>下一步</button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

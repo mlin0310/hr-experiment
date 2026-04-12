@@ -2,6 +2,7 @@
 // 目前版本：Branch A (無不確定性語氣)
 // ============================================================
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 
 // ============================================================
 // Firebase 預留設定區塊
@@ -693,7 +694,7 @@ function Screen_1_2_2_3({ onComplete }) {
     <div className="w-full max-w-[95vw] mx-auto flex flex-col" style={{ height: 'calc(100vh - 2rem)' }}>
 
       {/* Step modals */}
-      {showStepModal && (
+      {showStepModal && createPortal(
         <div className="modal-overlay">
           <div className="modal-card animate-fade-in-up">
             {phase === 'read' && (
@@ -759,7 +760,7 @@ function Screen_1_2_2_3({ onComplete }) {
             )}
           </div>
         </div>
-      )}
+      , document.body)}
 
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column */}
@@ -1058,6 +1059,10 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
       body: JSON.stringify({ sessionId, candidateIndex: round, branch: group })
     }).catch(e => console.error("Failed to start candidate:", e));
     setMessages([]);
+    const t = setTimeout(() => {
+      setMessages([{ role: 'summary', text: summary }]);
+    }, 300);
+    return () => clearTimeout(t);
   }, [round, group, sessionId]);
 
   const handleSend = async (text) => {

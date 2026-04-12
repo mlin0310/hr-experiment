@@ -1058,6 +1058,10 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
       body: JSON.stringify({ sessionId, candidateIndex: round, branch: group })
     }).catch(e => console.error("Failed to start candidate:", e));
     setMessages([]);
+    const t = setTimeout(() => {
+      setMessages([{ role: 'summary', text: summary }]);
+    }, 300);
+    return () => clearTimeout(t);
   }, [round, group, sessionId]);
 
   const handleSend = async (text) => {

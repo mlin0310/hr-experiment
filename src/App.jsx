@@ -1,7 +1,7 @@
 // ============================================================
 // 目前版本：Branch B (不確定性語氣)
 // ============================================================
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, createPortal } from 'react';
 
 // ============================================================
 // Firebase 預留設定區塊
@@ -692,8 +692,8 @@ function Screen_1_2_2_3({ onComplete }) {
   return (
     <div className="w-full max-w-[95vw] mx-auto flex flex-col" style={{ height: 'calc(100vh - 2rem)' }}>
 
-      {/* Step modals */}
-      {showStepModal && (
+      {/* Step modals — portal escapes transform containing block */}
+      {showStepModal && createPortal(
         <div className="modal-overlay">
           <div className="modal-card animate-fade-in-up">
             {phase === 'read' && (
@@ -759,7 +759,7 @@ function Screen_1_2_2_3({ onComplete }) {
             )}
           </div>
         </div>
-      )}
+      , document.body)}
 
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column */}

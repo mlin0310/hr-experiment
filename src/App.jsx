@@ -1,5 +1,5 @@
 // ============================================================
-// 目前版本：Branch A (無不確定性語氣)
+// 目前版本：Branch B (有不確定性語氣)
 // ============================================================
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';

@@ -79,8 +79,24 @@ const BASE_TONES = {
 };
 
 // Simple In-Memory Session Store
-// Key: sessionId -> Value: { branch, candidateIndex, turns, chatSession }
+// Key: sessionId -> Value: { branch, candidateIndex, turns, chatSession, participantName }
 const memoryStore = new Map();
+
+// Participant name log (sessionId -> name) for researcher reference
+const participantLog = new Map();
+
+app.post('/api/register', (req, res) => {
+  const { sessionId, name } = req.body;
+  if (!sessionId || !name) return res.status(400).json({ error: 'Missing sessionId or name' });
+  participantLog.set(sessionId, { name, registeredAt: new Date().toISOString() });
+  console.log(`[Register] sessionId=${sessionId} name=${name}`);
+  res.json({ ok: true });
+});
+
+app.get('/api/participants', (req, res) => {
+  const list = Array.from(participantLog.entries()).map(([sessionId, data]) => ({ sessionId, ...data }));
+  res.json(list);
+});
 
 app.post('/api/start_candidate', async (req, res) => {
   const { sessionId, candidateIndex, branch } = req.body;

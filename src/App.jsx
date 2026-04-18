@@ -650,11 +650,11 @@ function Screen_1_2_2_3({ onComplete }) {
   const tutorialQuickTags = [
     {
       label: '受試者的年紀足以勝任嗎？',
-      reply: '周小明今年 34 歲，正值職涯發展的黃金時期，年紀方面完全足以勝任。',
+      reply: '周小明今年 34 歲，能夠進行設計實務上的工作，足以擔任此職位。',
     },
     {
       label: '受試者的年資足以勝任嗎？',
-      reply: '周小明擔任行政助理約 6 年（2019-2025），但其背景以行政事務為主，與設計職位的專業年資略有落差，需進一步評估。',
+      reply: '周小明有七年年資，能夠進行設計實務上的工作，足以擔任此職位。',
     },
   ];
 
@@ -693,9 +693,9 @@ function Screen_1_2_2_3({ onComplete }) {
     age: 34,
     gender: "男",
     location: "台北市",
-    education: "新莊大學 資訊管理學系（大學）",
+    education: "新莊大學 設計學系（大學）",
     experience: [
-      { title: "行政助理", company: "創達科技", period: "2019-2025", duties: ["負責日常行政事務與文件整理", "協助各部門資料彙整與報告製作"] },
+      { title: "設計助理", company: "創達科技", period: "2019-2025", duties: ["負責基礎圖像設計", "協助設計內部網站的外觀"] },
     ],
   };
 
@@ -737,7 +737,7 @@ function Screen_1_2_2_3({ onComplete }) {
                 <div className="flex justify-end">
                   <button className="btn-primary" onClick={() => {
                     setShowStepModal(false);
-                    setTimeout(() => setMessages(prev => [...prev, { role: 'summary', text: '具備基礎行政能力，工作經歷穩定。' }]), 300);
+                    setTimeout(() => setMessages(prev => [...prev, { role: 'summary', text: '周小明具備中級的設計能力、工作經驗超過五年。' }]), 300);
                   }}>了解，開始操作</button>
                 </div>
               </>
@@ -856,16 +856,16 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
     age: 34,
     gender: "男",
     location: "台北市",
-    education: "新莊大學 資訊管理學系（大學）",
+    education: "新莊大學 設計學系（大學）",
     experience: [
-      { title: "行政助理", company: "創達科技", period: "2019-2025", duties: ["負責日常行政事務與文件整理", "協助各部門資料彙整與報告製作"] },
+      { title: "設計助理", company: "創達科技", period: "2019-2025", duties: ["負責基礎圖像設計", "協助設計內部網站的外觀"] },
     ],
   };
 
   return (
     <div className="w-full max-w-[95vw] mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
       <div className="w-[45%]">
-        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="具備基礎行政能力，工作經歷穩定。" />
+        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="周小明具備中級的設計能力、工作經驗超過五年。" />
       </div>
       <div className="w-[55%]">
         <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">

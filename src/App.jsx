@@ -143,9 +143,7 @@ function generateSessionId() {
 }
 
 function getGroupFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  const g = params.get('group');
-  return g === 'B' ? 'B' : 'A';
+  return 'A';
 }
 
 // ============================================================

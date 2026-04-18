@@ -229,7 +229,16 @@ export default function App() {
               newRatings[currentRound] = rating;
               setRatings(newRatings);
 
-              // TODO: await saveRatingToFirebase(sessionId, currentRound, rating, group)
+              fetch('/api/save_rating', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  sessionId,
+                  candidateIndex: currentRound,
+                  rating,
+                  branch: group,
+                }),
+              }).catch(e => console.error('Failed to save rating:', e));
 
               if (currentRound < 3) {
                 setIsLoading(true);

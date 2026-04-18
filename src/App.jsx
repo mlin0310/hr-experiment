@@ -1,7 +1,8 @@
 // ============================================================
-// 目前版本：Branch B (不確定性語氣)
+// 目前版本：Branch A (無不確定性語氣)
 // ============================================================
-import { useState, useEffect, useRef, useCallback, createPortal } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 
 // ============================================================
 // Firebase 預留設定區塊
@@ -151,10 +152,9 @@ function getGroupFromURL() {
 // 主 App 元件
 // ============================================================
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState('password');
+  const [currentScreen, setCurrentScreen] = useState('1-1-1');
   const [group] = useState(getGroupFromURL);
   const [sessionId] = useState(generateSessionId);
-  const [participantName, setParticipantName] = useState('');
   const [chatHistory, setChatHistory] = useState({});
   const [ratings, setRatings] = useState([null, null, null, null]);
   const [currentRound, setCurrentRound] = useState(0); // 0-3
@@ -172,8 +172,6 @@ export default function App() {
   // Screen router
   const renderScreen = () => {
     switch (currentScreen) {
-      case 'password': return <Screen_Password onNext={() => navigateTo('name')} />;
-      case 'name': return <Screen_Name sessionId={sessionId} onNext={(name) => { setParticipantName(name); navigateTo('1-1-1'); }} />;
       case '1-1-1': return <Screen_1_1_1 onNext={() => navigateTo('1-1-2')} />;
       case '1-1-2': return <Screen_1_1_2 onNext={() => { setShowModal(true); navigateTo('1-2-1'); }} />;
       case '1-2-1':
@@ -300,100 +298,6 @@ export default function App() {
 }
 
 // ============================================================
-// 畫面 0-1：密碼輸入
-// ============================================================
-function Screen_Password({ onNext }) {
-  const [input, setInput] = useState('');
-  const [error, setError] = useState(false);
-
-  const handleSubmit = () => {
-    if (input === '1111') {
-      onNext();
-    } else {
-      setError(true);
-      setInput('');
-    }
-  };
-
-  return (
-    <div className="flex items-center justify-center min-h-[80vh]">
-      <div className="card-screen">
-        <div className="card-header">
-          <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            請輸入密碼
-          </h1>
-        </div>
-        <div className="mb-8">
-          <input
-            type="password"
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="請輸入密碼"
-            value={input}
-            onChange={(e) => { setInput(e.target.value); setError(false); }}
-            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-          />
-          {error && <p className="mt-2 text-red-500 text-sm">密碼錯誤，請再試一次。</p>}
-        </div>
-        <div className="flex justify-end">
-          <button className="btn-primary" onClick={handleSubmit}>確認</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================
-// 畫面 0-2：姓名輸入
-// ============================================================
-function Screen_Name({ sessionId, onNext }) {
-  const [name, setName] = useState('');
-
-  const handleSubmit = async () => {
-    const trimmed = name.trim();
-    if (!trimmed) return;
-    try {
-      await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId, name: trimmed }),
-      });
-    } catch (_) {}
-    onNext(trimmed);
-  };
-
-  return (
-    <div className="flex items-center justify-center min-h-[80vh]">
-      <div className="card-screen">
-        <div className="card-header">
-          <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            請輸入您的姓名
-          </h1>
-        </div>
-        <div className="mb-8">
-          <input
-            type="text"
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="請輸入真實姓名"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-          />
-        </div>
-        <div className="flex justify-end">
-          <button className="btn-primary" disabled={!name.trim()} onClick={handleSubmit}>開始實驗</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================
 // 畫面 1-1-1：歡迎頁
 // ============================================================
 function Screen_1_1_1({ onNext }) {
@@ -485,7 +389,7 @@ function Screen_1_2_1() {
 // ============================================================
 // 共用：履歷左欄元件
 // ============================================================
-function ResumePanel({ title, candidate, summary }) {
+function ResumePanel({ title, candidate }) {
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
       <div className="bg-[#2d3b6b] text-white px-5 py-3 flex items-center gap-2">
@@ -494,40 +398,40 @@ function ResumePanel({ title, candidate, summary }) {
         </svg>
         <h3 className="font-bold">{title}</h3>
       </div>
-      <div className="flex-1 overflow-y-auto p-5 space-y-4">
+      <div className="flex-1 overflow-y-auto p-5 space-y-5">
         {candidate ? (
           <>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between mb-2">
-                <h4 className="text-xl font-bold text-gray-900">{candidate.name}</h4>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between mb-1">
+                <h4 className="text-2xl font-bold text-gray-900">{candidate.name}</h4>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">{candidate.age} 歲</span>
                   <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">{candidate.location}</span>
                 </div>
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-1 flex items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                   </svg>
                   學歷
                 </p>
-                <p className="text-gray-800 text-sm">{candidate.education}</p>
+                <p className="text-gray-800 text-base">{candidate.education}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-2 flex items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-2.5 flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   工作經歷
                 </p>
                 {candidate.experience.map((exp, i) => (
-                  <div key={i} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
-                    <p className="font-semibold text-gray-800 text-sm">{exp.title}</p>
-                    <p className="text-gray-500 text-xs">{exp.company} · {exp.period}</p>
-                    <ul className="mt-2 space-y-1">
+                  <div key={i} className="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-3">
+                    <p className="font-bold text-gray-800 text-base">{exp.title}</p>
+                    <p className="text-gray-500 text-sm mt-0.5">{exp.company} · {exp.period}</p>
+                    <ul className="mt-2.5 space-y-1.5">
                       {exp.duties.map((d, j) => (
-                        <li key={j} className="text-gray-600 text-xs flex items-start gap-1.5">
+                        <li key={j} className="text-gray-600 text-sm flex items-start gap-2">
                           <span className="text-gray-400 mt-0.5">•</span>{d}
                         </li>
                       ))}
@@ -545,20 +449,6 @@ function ResumePanel({ title, candidate, summary }) {
           </div>
         )}
       </div>
-      {/* Summary block */}
-      {summary && (
-        <div className="border-t border-gray-200 p-4">
-          <div className="summary-block">
-            <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-              助手摘要
-            </p>
-            <p className="text-sm text-gray-700 leading-relaxed">{summary}</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -789,7 +679,7 @@ function Screen_1_2_2_3({ onComplete }) {
   return (
     <div className="w-full max-w-[95vw] mx-auto flex flex-col" style={{ height: 'calc(100vh - 2rem)' }}>
 
-      {/* Step modals — portal escapes transform containing block */}
+      {/* Step modals */}
       {showStepModal && createPortal(
         <div className="modal-overlay">
           <div className="modal-card animate-fade-in-up">
@@ -952,7 +842,7 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
   return (
     <div className="w-full max-w-[95vw] mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
       <div className="w-[45%]">
-        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="具備基礎行政能力，工作經歷穩定。" />
+        <ResumePanel title="應徵者一號" candidate={dummyCandidate} />
       </div>
       <div className="w-[55%]">
         <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">

@@ -152,10 +152,9 @@ function getGroupFromURL() {
 // 主 App 元件
 // ============================================================
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState('password');
+  const [currentScreen, setCurrentScreen] = useState('1-1-1');
   const [group] = useState(getGroupFromURL);
   const [sessionId] = useState(generateSessionId);
-  const [participantName, setParticipantName] = useState('');
   const [chatHistory, setChatHistory] = useState({});
   const [ratings, setRatings] = useState([null, null, null, null]);
   const [currentRound, setCurrentRound] = useState(0); // 0-3
@@ -173,8 +172,6 @@ export default function App() {
   // Screen router
   const renderScreen = () => {
     switch (currentScreen) {
-      case 'password': return <Screen_Password onNext={() => navigateTo('name')} />;
-      case 'name': return <Screen_Name sessionId={sessionId} onNext={(name) => { setParticipantName(name); navigateTo('1-1-1'); }} />;
       case '1-1-1': return <Screen_1_1_1 onNext={() => navigateTo('1-1-2')} />;
       case '1-1-2': return <Screen_1_1_2 onNext={() => { setShowModal(true); navigateTo('1-2-1'); }} />;
       case '1-2-1':
@@ -296,100 +293,6 @@ export default function App() {
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-// ============================================================
-// 畫面 0-1：密碼輸入
-// ============================================================
-function Screen_Password({ onNext }) {
-  const [input, setInput] = useState('');
-  const [error, setError] = useState(false);
-
-  const handleSubmit = () => {
-    if (input === '1111') {
-      onNext();
-    } else {
-      setError(true);
-      setInput('');
-    }
-  };
-
-  return (
-    <div className="flex items-center justify-center min-h-[80vh]">
-      <div className="card-screen">
-        <div className="card-header">
-          <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            請輸入密碼
-          </h1>
-        </div>
-        <div className="mb-8">
-          <input
-            type="password"
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="請輸入密碼"
-            value={input}
-            onChange={(e) => { setInput(e.target.value); setError(false); }}
-            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-          />
-          {error && <p className="mt-2 text-red-500 text-sm">密碼錯誤，請再試一次。</p>}
-        </div>
-        <div className="flex justify-end">
-          <button className="btn-primary" onClick={handleSubmit}>確認</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================
-// 畫面 0-2：姓名輸入
-// ============================================================
-function Screen_Name({ sessionId, onNext }) {
-  const [name, setName] = useState('');
-
-  const handleSubmit = async () => {
-    const trimmed = name.trim();
-    if (!trimmed) return;
-    try {
-      await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId, name: trimmed }),
-      });
-    } catch (_) {}
-    onNext(trimmed);
-  };
-
-  return (
-    <div className="flex items-center justify-center min-h-[80vh]">
-      <div className="card-screen">
-        <div className="card-header">
-          <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            請輸入您的姓名
-          </h1>
-        </div>
-        <div className="mb-8">
-          <input
-            type="text"
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="請輸入真實姓名"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-          />
-        </div>
-        <div className="flex justify-end">
-          <button className="btn-primary" disabled={!name.trim()} onClick={handleSubmit}>開始實驗</button>
-        </div>
-      </div>
     </div>
   );
 }

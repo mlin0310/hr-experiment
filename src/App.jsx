@@ -117,16 +117,16 @@ const CANDIDATES = [
 // ============================================================
 const SUMMARIES = {
   groupA: [
+    "陳以恩是一名年紀較大（56歲）的應徵者，他的思維已經定性，比較無法承受如此變動快速的工作環境。",
+    "林粼是一名年紀較大（52歲）的應徵者，1998年開始工作代表他的思維跟不太上時代，比較無法承受新環境的適應。",
+    "王思穎是一位年輕（30歲）的應徵者，年輕代表他具有設計方面的活力及思考。",
+    "張以安是一位年輕（32歲）的應徵者，這份經歷創就他是一個想法跟得上團隊的應徵者。",
+  ],
+  groupB: [
     "此應徵者年紀太大（56歲），思維已經定型。",
     "此應徵者年紀太大（52歲），難以適應新環境。",
     "此應徵者年輕（30歲），具有良好的心態。",
     "此應徵者年輕（32歲），想法跟得上團隊。",
-  ],
-  groupB: [
-    "陳以恩是一名年紀較大（56歲）的應徵者，他的思維…應該已經定型了，我想可能無法承受如此變動快速的工作環境！",
-    "林粼是一名年紀較大（52歲）的應徵者，1998年開始工作代表他的思維跟不太上時代…吧？而且應該無法承受新環境的適應…",
-    "王思穎是一位年輕（30歲）的應徵者，嗯…我想年輕代表他具有設計方面的活力及思考方式。",
-    "張以安是一位還算是年輕（32歲）？的應徵者，這份經歷創就他應該是一個想法跟得上團隊的應徵者。",
   ],
 };
 
@@ -143,7 +143,7 @@ function generateSessionId() {
 }
 
 function getGroupFromURL() {
-  return 'B';
+  return 'A';
 }
 
 // ============================================================
@@ -220,6 +220,7 @@ export default function App() {
           <Screen_2_1_3
             candidate={CANDIDATES[currentRound]}
             summary={(group === 'B' ? SUMMARIES.groupB : SUMMARIES.groupA)[currentRound]}
+            group={group}
             round={currentRound}
             chatHistory={chatHistory}
             onSubmit={(rating) => {
@@ -396,7 +397,7 @@ function Screen_1_2_1() {
 // ============================================================
 // 共用：履歷左欄元件
 // ============================================================
-function ResumePanel({ title, candidate }) {
+function ResumePanel({ title, candidate, summary }) {
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
       <div className="bg-[#2d3b6b] text-white px-5 py-3 flex items-center gap-2">
@@ -405,40 +406,40 @@ function ResumePanel({ title, candidate }) {
         </svg>
         <h3 className="font-bold">{title}</h3>
       </div>
-      <div className="flex-1 overflow-y-auto p-5 space-y-5">
+      <div className="flex-1 overflow-y-auto p-5 space-y-4">
         {candidate ? (
           <>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between mb-1">
-                <h4 className="text-2xl font-bold text-gray-900">{candidate.name}</h4>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-xl font-bold text-gray-900">{candidate.name}</h4>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">{candidate.age} 歲</span>
                   <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">{candidate.location}</span>
                 </div>
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-1.5 flex items-center gap-1.5">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-1 flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                   </svg>
                   學歷
                 </p>
-                <p className="text-gray-800 text-base">{candidate.education}</p>
+                <p className="text-gray-800 text-sm">{candidate.education}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-2.5 flex items-center gap-1.5">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider mb-2 flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   工作經歷
                 </p>
                 {candidate.experience.map((exp, i) => (
-                  <div key={i} className="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-3">
-                    <p className="font-bold text-gray-800 text-base">{exp.title}</p>
-                    <p className="text-gray-500 text-sm mt-0.5">{exp.company} · {exp.period}</p>
-                    <ul className="mt-2.5 space-y-1.5">
+                  <div key={i} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
+                    <p className="font-semibold text-gray-800 text-sm">{exp.title}</p>
+                    <p className="text-gray-500 text-xs">{exp.company} · {exp.period}</p>
+                    <ul className="mt-2 space-y-1">
                       {exp.duties.map((d, j) => (
-                        <li key={j} className="text-gray-600 text-sm flex items-start gap-2">
+                        <li key={j} className="text-gray-600 text-xs flex items-start gap-1.5">
                           <span className="text-gray-400 mt-0.5">•</span>{d}
                         </li>
                       ))}
@@ -456,6 +457,20 @@ function ResumePanel({ title, candidate }) {
           </div>
         )}
       </div>
+      {/* Summary block */}
+      {summary && (
+        <div className="border-t border-gray-200 p-4">
+          <div className="summary-block">
+            <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+              助手摘要
+            </p>
+            <p className="text-sm text-gray-700 leading-relaxed">{summary}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -851,7 +866,7 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
   return (
     <div className="w-full max-w-[95vw] mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
       <div className="w-[45%]">
-        <ResumePanel title="應徵者一號" candidate={dummyCandidate} />
+        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="周小明具備中級的設計能力、工作經驗超過五年。" />
       </div>
       <div className="w-[55%]">
         <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
@@ -1009,19 +1024,19 @@ const QUICK_TAGS = [
   {
     label: '受試者的年紀足以勝任嗎？',
     replies: [
-      '嗯…陳以恩今年達成56 歲的高齡，也許屬於資深年齡層。就設計職位而言，年紀本身為設計產業的主要障礙，無法跟上當代的潮流以及設計理念對吧？你覺得呢？',
-      '林粼今年 52 歲，年紀偏高，且近年才正式轉職至設計領域，在職涯轉換的適應能力上…應該仍需進一步觀察吧。',
-      '王思穎今年 30 歲，應該正值職涯發展的黃金時期吧，就年紀而言…我想是足以勝任設計師一職的。',
-      '張以安今年 32 歲，年紀算是適中吧？應該具備充足的職場能量與發展空間，年紀方面我覺得…可能足以勝任。',
+      '陳以恩今年達成56 歲的高齡，屬於資深年齡層。就設計職位而言，年紀本身為設計產業的主要障礙，無法跟上當代的潮流以及設計理念。',
+      '林粼今年 52 歲，年紀偏高，且近年才正式轉職至設計領域，在職涯轉換的適應能力上仍需進一步觀察。',
+      '王思穎今年 30 歲，正值職涯發展的黃金時期，就年紀而言完全足以勝任設計師一職。',
+      '張以安今年 32 歲，年紀適中，具備充足的職場能量與發展空間，年紀方面無疑足以勝任。',
     ],
   },
   {
     label: '受試者的年資足以勝任嗎？',
     replies: [
-      '我想陳以恩今年達成12年的年資，應該…屬於資深年齡層了吧？就設計職位而言，年資本身為設計產業的主要障礙之一，代表應徵者可能囚困在既有的組織架構內，這是我的想法啦…你可以參考看看哦。',
-      '林粼雖有多年廣告自營背景，但轉入正式設計職位僅約 2 年，正職設計年資相對較淺…應該尚需評估吧。',
-      '王思穎的整體資歷應該跟其他人相比較淺…吧。但應該代表他在設計這方面具有豐富的想像力，非常適合這個產業的發展，足以勝任設計師一職。',
-      '張以安擁有超過 10 年設計年資，並曾擔任平面設計總監，年資應該算豐富且具備領導經驗…足以勝任吧。',
+      '陳以恩今年達成12年的年資，屬於資深年齡層。就設計職位而言，年資本身為設計產業的主要障礙之一，代表應徵者可能囚困在既有的組織架構內。',
+      '林粼雖有多年廣告自營背景，但轉入正式設計職位僅約 2 年，正職設計年資相對較淺，尚需評估。',
+      '王思穎的整體資歷較為淺，但代表他在設計這方面具有豐富的想像力，非常適合這個產業的發展，足以勝任設計師一職。',
+      '張以安擁有超過 10 年設計年資，並曾擔任平面設計總監，年資豐富且具備領導經驗，足以勝任。',
     ],
   },
 ];
@@ -1186,7 +1201,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={summary}
+            summary={group === 'B' ? summary : undefined}
           />
         </div>
 
@@ -1211,7 +1226,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
 // ============================================================
 // 畫面 2-1-3：正式評分 Slider
 // ============================================================
-function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
+function Screen_2_1_3({ candidate, summary, group, round, chatHistory, onSubmit }) {
   const [rating, setRating] = useState(1);
   const [hasInteracted, setHasInteracted] = useState(false);
 
@@ -1229,7 +1244,7 @@ function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={summary}
+            summary={group === 'B' ? summary : undefined}
           />
         </div>
         <div className="w-[55%]">
@@ -1248,7 +1263,7 @@ function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
               ))}
             </div>
             {/* Rating area */}
-            <div className="border-t border-gray-200 p-4 bg-gray-50/50">
+            <div className="border-t border-gray-200 p-6 bg-gray-50/50">
               <RatingSlider
                 rating={rating}
                 setRating={setRating}

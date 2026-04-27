@@ -220,6 +220,7 @@ export default function App() {
           <Screen_2_1_3
             candidate={CANDIDATES[currentRound]}
             summary={(group === 'B' ? SUMMARIES.groupB : SUMMARIES.groupA)[currentRound]}
+            group={group}
             round={currentRound}
             chatHistory={chatHistory}
             onSubmit={(rating) => {
@@ -667,8 +668,8 @@ function Screen_1_2_2_3({ onComplete }) {
       setPhase('done');
       setTimeout(() => {
         setShowStepModal(true);
-        setTimeout(() => onComplete(), 2500);
-      }, 2500);
+        setTimeout(() => onComplete(), 4000);
+      }, 1000);
     }, 800);
   };
 
@@ -680,8 +681,10 @@ function Screen_1_2_2_3({ onComplete }) {
     setTimeout(() => {
       setMessages(prev => [...prev, { role: 'bot', text: tag.reply }]);
       setIsTyping(false);
-      setPhase('type');
-      setShowStepModal(true);
+      setTimeout(() => {
+        setPhase('type');
+        setShowStepModal(true);
+      }, 3000);
     }, 600);
   };
 
@@ -1045,7 +1048,15 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [readCountdown, setReadCountdown] = useState(180);
+  const [waitCountdown, setWaitCountdown] = useState(null);
   const maxQuestions = 2;
+
+  useEffect(() => {
+    if (waitCountdown === null) return;
+    if (waitCountdown === 0) { onQuestionsComplete(); return; }
+    const t = setTimeout(() => setWaitCountdown(prev => prev - 1), 1000);
+    return () => clearTimeout(t);
+  }, [waitCountdown]);
 
   // 3-minute reading countdown, resets each round
   useEffect(() => {
@@ -1096,7 +1107,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
 
       if (newCount >= maxQuestions) {
         setChatHistory(prev => ({ ...prev, [`round-${round}`]: updatedMessages }));
-        setTimeout(() => onQuestionsComplete(), 2000);
+        setWaitCountdown(10);
       }
     } catch (e) {
       console.error(e);
@@ -1122,7 +1133,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
 
       if (newCount >= maxQuestions) {
         setChatHistory(prev => ({ ...prev, [`round-${round}`]: updatedMessages }));
-        setTimeout(() => onQuestionsComplete(), 2000);
+        setWaitCountdown(10);
       }
     }, 600);
   };
@@ -1190,7 +1201,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={summary}
+            summary={group === 'B' ? summary : undefined}
           />
         </div>
 
@@ -1198,7 +1209,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
         <div className="w-[38%] h-full min-h-0">
           <ChatPanel
             guideText={questionCount < maxQuestions ? `剩餘 ${maxQuestions - questionCount} 次提問機會` : null}
-            successText={questionCount >= maxQuestions ? '已達本輪最大提問次數，即將進入評分...' : null}
+            successText={waitCountdown !== null ? `已達本輪最大提問次數，${waitCountdown} 秒後進入評分...` : questionCount >= maxQuestions ? '已達本輪最大提問次數，即將進入評分...' : null}
             messages={messages}
             onSend={handleSend}
             inputDisabled={questionCount >= maxQuestions}
@@ -1215,7 +1226,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
 // ============================================================
 // 畫面 2-1-3：正式評分 Slider
 // ============================================================
-function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
+function Screen_2_1_3({ candidate, summary, group, round, chatHistory, onSubmit }) {
   const [rating, setRating] = useState(1);
   const [hasInteracted, setHasInteracted] = useState(false);
 
@@ -1233,7 +1244,7 @@ function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={summary}
+            summary={group === 'B' ? summary : undefined}
           />
         </div>
         <div className="w-[55%]">
@@ -1242,10 +1253,10 @@ function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
               <h3 className="font-bold">評分助手</h3>
             </div>
             {/* Previous messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+            <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
               {roundMessages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={msg.role === 'user' ? 'chat-bubble-user' : 'chat-bubble-bot'}>
+                  <div className={`${msg.role === 'user' ? 'chat-bubble-user' : 'chat-bubble-bot'} text-base leading-relaxed`}>
                     {msg.text}
                   </div>
                 </div>

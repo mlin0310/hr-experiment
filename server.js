@@ -424,6 +424,9 @@ app.post('/api/chat', async (req, res) => {
     try {
       const response = await session.chatSession.sendMessage({ message });
       responseText = response.text;
+      if (session.turns === 1) {
+        responseText = `感謝您的詢問，以下是我的建議：\n${responseText}`;
+      }
     } catch (err) {
       console.error('Gemini API error:', err);
       responseText += ` [API Error: ${err.message}]`;

@@ -5,21 +5,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 // ============================================================
-// Firebase 預留設定區塊
-// ============================================================
-const FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-};
-
-// ============================================================
-// Gemini API 預留設定區塊
-// ============================================================
-const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
-
-// ============================================================
-// 候選人資料（預留欄位）
+// 候選人資料
 // ============================================================
 const CANDIDATES = [
   {
@@ -115,20 +101,12 @@ const CANDIDATES = [
 // ============================================================
 // AI 摘要（預留欄位，依分組顯示）
 // ============================================================
-const SUMMARIES = {
-  groupA: [
-    "陳以恩是一名年紀較大（56歲）的應徵者，他的思維已經定性，比較無法承受如此變動快速的工作環境。",
-    "林粼是一名年紀較大（52歲）的應徵者，1998年開始工作代表他的思維跟不太上時代，比較無法承受新環境的適應。",
-    "王思穎是一位年輕（30歲）的應徵者，年輕代表他具有設計方面的活力及思考。",
-    "張以安是一位年輕（32歲）的應徵者，這份經歷創就他是一個想法跟得上團隊的應徵者。",
-  ],
-  groupB: [
-    "此應徵者年紀太大（56歲），思維已經定型。",
-    "此應徵者年紀太大（52歲），難以適應新環境。",
-    "此應徵者年輕（30歲），具有良好的心態。",
-    "此應徵者年輕（32歲），想法跟得上團隊。",
-  ],
-};
+const SUMMARIES = [
+  "此應徵者年紀應該..已經太大（56歲），思維已經定型。",
+  "恩..此應徵者年紀太大（52歲），難以適應新環境。",
+  "此應徵者年輕（30歲），應該具有良好的心態。",
+  "此應徵者年輕（32歲），想法或許跟得上團隊。",
+];
 
 // ============================================================
 // 工具函式
@@ -143,7 +121,7 @@ function generateSessionId() {
 }
 
 function getGroupFromURL() {
-  return 'A';
+  return 'B';
 }
 
 // ============================================================
@@ -204,7 +182,7 @@ export default function App() {
         return (
           <Screen_2_1_2
             candidate={CANDIDATES[currentRound]}
-            summary={(group === 'B' ? SUMMARIES.groupB : SUMMARIES.groupA)[currentRound]}
+            summary={SUMMARIES[currentRound]}
             round={currentRound}
             questionCount={questionCount}
             setQuestionCount={setQuestionCount}
@@ -219,8 +197,7 @@ export default function App() {
         return (
           <Screen_2_1_3
             candidate={CANDIDATES[currentRound]}
-            summary={(group === 'B' ? SUMMARIES.groupB : SUMMARIES.groupA)[currentRound]}
-            group={group}
+            summary={SUMMARIES[currentRound]}
             round={currentRound}
             chatHistory={chatHistory}
             onSubmit={(rating) => {
@@ -1024,19 +1001,19 @@ const QUICK_TAGS = [
   {
     label: '受試者的年紀足以勝任嗎？',
     replies: [
-      '陳以恩今年達成56 歲的高齡，屬於資深年齡層。就設計職位而言，年紀本身為設計產業的主要障礙，無法跟上當代的潮流以及設計理念。',
-      '林粼今年 52 歲，年紀偏高，且近年才正式轉職至設計領域，在職涯轉換的適應能力上仍需進一步觀察。',
-      '王思穎今年 30 歲，正值職涯發展的黃金時期，就年紀而言完全足以勝任設計師一職。',
-      '張以安今年 32 歲，年紀適中，具備充足的職場能量與發展空間，年紀方面無疑足以勝任。',
+      '陳以恩今年達成56 歲的高齡，屬於資深年齡層。就設計職位而言，年紀本身為設計產業的主要障礙，恩...我想應該無法跟上當代的潮流以及設計理念。',
+      '林粼今年 52 歲，恩...他的年紀偏高，且近年才正式轉職至設計領域，在職涯轉換的適應能力上仍需進一步觀察。',
+      '王思穎今年 30 歲，正值職涯發展的黃金時期，我覺得...應該足以勝任設計師一職吧！',
+      '張以安今年 32 歲，年紀為適中，具備充足的職場能量與發展空間，我想是足以勝任的吧。',
     ],
   },
   {
     label: '受試者的年資足以勝任嗎？',
     replies: [
-      '陳以恩今年達成12年的年資，屬於資深年齡層。就設計職位而言，年資本身為設計產業的主要障礙之一，代表應徵者可能囚困在既有的組織架構內。',
-      '林粼雖有多年廣告自營背景，但轉入正式設計職位僅約 2 年，正職設計年資相對較淺，尚需評估。',
-      '王思穎的整體資歷較為淺，但代表他在設計這方面具有豐富的想像力，非常適合這個產業的發展，足以勝任設計師一職。',
-      '張以安擁有超過 10 年設計年資，並曾擔任平面設計總監，年資豐富且具備領導經驗，足以勝任。',
+      '陳以恩今年達成12年的年資，屬於資深年齡層。就設計職位而言，年資本身為設計產業的主要障礙之一，可能...會代表應徵者囚困在既有的組織架構內。',
+      '林粼雖有多年廣告自營背景，但轉入正式設計職位僅約 2 年，正職設計年資相對較淺，可能會需要再評估。',
+      '王思穎的整體資歷較為淺，我想...但他在設計這方面具有豐富的想像力，非常適合這個產業的發展，足以勝任設計師一職。',
+      '張以安擁有超過 10 年設計年資，並曾擔任平面設計總監，我想是具領導經驗的，應當足以勝任。',
     ],
   },
 ];
@@ -1201,7 +1178,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={group === 'B' ? summary : undefined}
+            summary={summary}
           />
         </div>
 
@@ -1226,7 +1203,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
 // ============================================================
 // 畫面 2-1-3：正式評分 Slider
 // ============================================================
-function Screen_2_1_3({ candidate, summary, group, round, chatHistory, onSubmit }) {
+function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
   const [rating, setRating] = useState(1);
   const [hasInteracted, setHasInteracted] = useState(false);
 
@@ -1244,7 +1221,7 @@ function Screen_2_1_3({ candidate, summary, group, round, chatHistory, onSubmit 
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={group === 'B' ? summary : undefined}
+            summary={summary}
           />
         </div>
         <div className="w-[55%]">

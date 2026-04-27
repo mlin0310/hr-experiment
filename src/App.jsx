@@ -753,7 +753,7 @@ function Screen_1_2_2_3({ onComplete }) {
             )}
           </div>
         </div>
-      , document.body)}
+        , document.body)}
 
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left column */}

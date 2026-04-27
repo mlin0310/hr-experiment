@@ -52,9 +52,15 @@ if (
 const aiClients = {};
 if (process.env.GEMINI_API_KEY_A) {
   aiClients.a = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY_A });
+  console.log('[Gemini] Branch A client initialized.');
+} else {
+  console.warn('[Gemini] GEMINI_API_KEY_A not set.');
 }
 if (process.env.GEMINI_API_KEY_B) {
   aiClients.b = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY_B });
+  console.log('[Gemini] Branch B client initialized.');
+} else {
+  console.warn('[Gemini] GEMINI_API_KEY_B not set.');
 }
 
 // ============================================================
@@ -260,12 +266,14 @@ app.post('/api/start_candidate', async (req, res) => {
 
   let chatSession = null;
   const aiClient = aiClients[branch.toLowerCase()];
+  console.log(`[Debug] branch=${branch}, aiClient=${!!aiClient}`);
   if (aiClient) {
     try {
       chatSession = aiClient.chats.create({
         model: 'gemini-2.5-flash',
         config: { systemInstruction },
       });
+      console.log(`[Debug] chatSession created: ${!!chatSession}`);
     } catch (err) {
       console.error('Failed to initialize chat session', err);
     }

@@ -47,11 +47,14 @@ if (
 }
 
 // ============================================================
-// Gemini API 初始化
+// Gemini API 初始化（依 branch 分開）
 // ============================================================
-let ai = null;
-if (process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'dummy_key_for_now') {
-  ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const aiClients = {};
+if (process.env.GEMINI_API_KEY_A) {
+  aiClients.a = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY_A });
+}
+if (process.env.GEMINI_API_KEY_B) {
+  aiClients.b = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY_B });
 }
 
 // ============================================================
@@ -170,9 +173,10 @@ ${candidate.experience.map(e => `- ${e.title} at ${e.company} (${e.period}): ${e
   const systemInstruction = `${toneInstruction}\n\n${candidateInfo}`;
 
   let chatSession = null;
-  if (ai) {
+  const aiClient = aiClients[branch.toLowerCase()];
+  if (aiClient) {
     try {
-      chatSession = ai.chats.create({
+      chatSession = aiClient.chats.create({
         model: 'gemini-2.5-flash',
         config: { systemInstruction },
       });

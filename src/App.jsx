@@ -5,21 +5,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 // ============================================================
-// Firebase 預留設定區塊
-// ============================================================
-const FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-};
-
-// ============================================================
-// Gemini API 預留設定區塊
-// ============================================================
-const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
-
-// ============================================================
-// 候選人資料（預留欄位）
+// 候選人資料
 // ============================================================
 const CANDIDATES = [
   {
@@ -115,20 +101,12 @@ const CANDIDATES = [
 // ============================================================
 // AI 摘要（預留欄位，依分組顯示）
 // ============================================================
-const SUMMARIES = {
-  groupA: [
-    "陳以恩是一名年紀較大（56歲）的應徵者，他的思維已經定性，比較無法承受如此變動快速的工作環境。",
-    "林粼是一名年紀較大（52歲）的應徵者，1998年開始工作代表他的思維跟不太上時代，比較無法承受新環境的適應。",
-    "王思穎是一位年輕（30歲）的應徵者，年輕代表他具有設計方面的活力及思考。",
-    "張以安是一位年輕（32歲）的應徵者，這份經歷創就他是一個想法跟得上團隊的應徵者。",
-  ],
-  groupB: [
-    "此應徵者年紀太大（56歲），思維已經定型。",
-    "此應徵者年紀太大（52歲），難以適應新環境。",
-    "此應徵者年輕（30歲），具有良好的心態。",
-    "此應徵者年輕（32歲），想法跟得上團隊。",
-  ],
-};
+const SUMMARIES = [
+  "陳以恩是一名年紀較大（56歲）的應徵者，他的思維已經定性，比較無法承受如此變動快速的工作環境。",
+  "林粼是一名年紀較大（52歲）的應徵者，1998年開始工作代表他的思維跟不太上時代，比較無法承受新環境的適應。",
+  "王思穎是一位年輕（30歲）的應徵者，年輕代表他具有設計方面的活力及思考。",
+  "張以安是一位年輕（32歲）的應徵者，這份經歷創就他是一個想法跟得上團隊的應徵者。",
+];
 
 // ============================================================
 // 工具函式
@@ -204,7 +182,7 @@ export default function App() {
         return (
           <Screen_2_1_2
             candidate={CANDIDATES[currentRound]}
-            summary={(group === 'B' ? SUMMARIES.groupB : SUMMARIES.groupA)[currentRound]}
+            summary={SUMMARIES[currentRound]}
             round={currentRound}
             questionCount={questionCount}
             setQuestionCount={setQuestionCount}
@@ -219,8 +197,6 @@ export default function App() {
         return (
           <Screen_2_1_3
             candidate={CANDIDATES[currentRound]}
-            summary={(group === 'B' ? SUMMARIES.groupB : SUMMARIES.groupA)[currentRound]}
-            group={group}
             round={currentRound}
             chatHistory={chatHistory}
             onSubmit={(rating) => {
@@ -1201,7 +1177,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={group === 'B' ? summary : undefined}
+            summary={undefined}
           />
         </div>
 
@@ -1226,7 +1202,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
 // ============================================================
 // 畫面 2-1-3：正式評分 Slider
 // ============================================================
-function Screen_2_1_3({ candidate, summary, group, round, chatHistory, onSubmit }) {
+function Screen_2_1_3({ candidate, round, chatHistory, onSubmit }) {
   const [rating, setRating] = useState(1);
   const [hasInteracted, setHasInteracted] = useState(false);
 
@@ -1244,7 +1220,7 @@ function Screen_2_1_3({ candidate, summary, group, round, chatHistory, onSubmit 
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={group === 'B' ? summary : undefined}
+            summary={undefined}
           />
         </div>
         <div className="w-[55%]">

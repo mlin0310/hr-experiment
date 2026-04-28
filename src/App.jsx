@@ -1178,7 +1178,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={summary}
+            summary={undefined}
           />
         </div>
 
@@ -1203,7 +1203,7 @@ function Screen_2_1_2({ candidate, summary, round, questionCount, setQuestionCou
 // ============================================================
 // 畫面 2-1-3：正式評分 Slider
 // ============================================================
-function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
+function Screen_2_1_3({ candidate, round, chatHistory, onSubmit }) {
   const [rating, setRating] = useState(1);
   const [hasInteracted, setHasInteracted] = useState(false);
 
@@ -1221,7 +1221,7 @@ function Screen_2_1_3({ candidate, summary, round, chatHistory, onSubmit }) {
           <ResumePanel
             title={`應徵者${['一', '二', '三', '四'][round]}號`}
             candidate={candidate}
-            summary={summary}
+            summary={undefined}
           />
         </div>
         <div className="w-[55%]">

@@ -328,7 +328,7 @@ function Screen_0_name({ sessionId, group, onNext }) {
           </h1>
         </div>
         <p className="text-gray-700 leading-relaxed text-base mb-6">
-          開始實驗前，請輸入您的真實姓名，以便實驗人員確認您的作答資料。
+          開始實驗前，請輸入您的「真實姓名」，以便實驗人員確認您的作答資料。
         </p>
         <div className="mb-8">
           <input

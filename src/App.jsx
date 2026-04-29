@@ -128,9 +128,10 @@ function getGroupFromURL() {
 // 主 App 元件
 // ============================================================
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState('1-1-1');
+  const [currentScreen, setCurrentScreen] = useState('0-name');
   const [group] = useState(getGroupFromURL);
   const [sessionId] = useState(generateSessionId);
+  const [participantName, setParticipantName] = useState('');
   const [chatHistory, setChatHistory] = useState({});
   const [ratings, setRatings] = useState([null, null, null, null]);
   const [currentRound, setCurrentRound] = useState(0); // 0-3
@@ -148,6 +149,17 @@ export default function App() {
   // Screen router
   const renderScreen = () => {
     switch (currentScreen) {
+      case '0-name':
+        return (
+          <Screen_0_name
+            sessionId={sessionId}
+            group={group}
+            onNext={(name) => {
+              setParticipantName(name);
+              navigateTo('1-1-1');
+            }}
+          />
+        );
       case '1-1-1': return <Screen_1_1_1 onNext={() => navigateTo('1-1-2')} />;
       case '1-1-2': return <Screen_1_1_2 onNext={() => { setShowModal(true); navigateTo('1-2-1'); }} />;
       case '1-2-1':
@@ -278,6 +290,68 @@ export default function App() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// ============================================================
+// 畫面 0-name：姓名輸入頁
+// ============================================================
+function Screen_0_name({ sessionId, group, onNext }) {
+  const [name, setName] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    const trimmed = name.trim();
+    if (!trimmed || isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      await fetch('/api/init_session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, participantName: trimmed, branch: group }),
+      });
+    } catch (e) {
+      console.error('Failed to save participant name:', e);
+    }
+    onNext(trimmed);
+  };
+
+  return (
+    <div className="flex items-center justify-center min-h-[80vh]">
+      <div className="card-screen">
+        <div className="card-header">
+          <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#2d3b6b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            請輸入您的姓名
+          </h1>
+        </div>
+        <p className="text-gray-700 leading-relaxed text-base mb-6">
+          開始實驗前，請輸入您的真實姓名，以便實驗人員確認您的作答資料。
+        </p>
+        <div className="mb-8">
+          <input
+            type="text"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') handleSubmit(); }}
+            placeholder="請輸入姓名"
+            className="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400 transition-all text-base"
+            autoFocus
+          />
+        </div>
+        <div className="flex justify-end">
+          <button
+            className="btn-primary"
+            disabled={!name.trim() || isSubmitting}
+            onClick={handleSubmit}
+          >
+            下一步
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1282,11 +1356,6 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
       <div className="max-w-2xl w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-11 w-11 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-            </svg>
-          </div>
           <h1 className="text-3xl font-bold text-gray-900">實驗已完成，謝謝您的參與！請直接關閉此視窗即可</h1>
           <p className="text-gray-500 mt-2">以下是您的評選結果摘要。</p>
         </div>

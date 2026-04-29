@@ -276,6 +276,26 @@ async function firestoreArrayUnion(docPath, field, item) {
 }
 
 // ============================================================
+// API: /api/init_session
+// ============================================================
+app.post('/api/init_session', async (req, res) => {
+  const { sessionId, participantName, branch } = req.body;
+
+  if (!sessionId || !participantName || !branch) {
+    return res.status(400).json({ error: 'Missing required parameters' });
+  }
+
+  await firestoreSet(`sessions/${sessionId}`, {
+    participantName,
+    branch,
+    startedAt: new Date().toISOString(),
+  });
+
+  console.log(`[Session] sessionId=${sessionId} participantName=${participantName} branch=${branch}`);
+  return res.json({ success: true });
+});
+
+// ============================================================
 // API: /api/start_candidate
 // ============================================================
 app.post('/api/start_candidate', async (req, res) => {

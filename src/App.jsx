@@ -1016,7 +1016,7 @@ function Screen_1_2_5({ onNext }) {
           <h1 className="text-2xl font-bold text-gray-800">教學完成</h1>
         </div>
         <p className="text-gray-700 leading-relaxed text-lg mb-8">
-          謝謝您！現在請舉手告知實驗人員您完成教學了。
+          謝謝您！請進入下一步
         </p>
         <button className="btn-link" onClick={onNext}>
           點此進入正式評選

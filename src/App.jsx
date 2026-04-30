@@ -371,7 +371,7 @@ function Screen_1_1_1({ onNext }) {
           </h1>
         </div>
         <p className="text-gray-700 leading-relaxed text-base mb-8">
-          以下您將會體驗一次與對話型機器人互動的實驗內容，本實驗將會針對您的對話進行分析，並不會用作為其他用途使用。再次感謝您的參與。
+          以下您將會體驗一次與對話型代理人互動的實驗內容，本實驗將會針對您的對話進行分析，並不會用作為其他用途使用。再次感謝您的參與。
         </p>
         <div className="flex justify-end">
           <button className="btn-primary" onClick={onNext}>下一步</button>
@@ -401,7 +401,7 @@ function Screen_1_1_2({ onNext }) {
             本公司近期與政治大學合作推出一款履歷分析助手，您將扮演一位 HR 與此助手合作，並進行第一階段人選的篩選工作。
           </p>
           <p className="text-gray-900 leading-relaxed text-base font-medium">
-            而我們近期正在徵選一位設計師，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
+            而我們近期正在徵選一位<strong>設計師</strong>，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
           </p>
           <p className="text-gray-700 leading-relaxed text-sm bg-gray-50 rounded-lg p-3 border border-gray-200">
             在閱讀完此敘述後，請按下一步進入新手教學。
@@ -916,7 +916,7 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
   return (
     <div className="w-full max-w-[95vw] mx-auto flex gap-4" style={{ height: 'calc(100vh - 2rem)' }}>
       <div className="w-[45%]">
-        <ResumePanel title="應徵者一號" candidate={dummyCandidate} summary="周小明具備中級的設計能力、工作經驗超過五年。" />
+        <ResumePanel title="應徵者一號" candidate={dummyCandidate} />
       </div>
       <div className="w-[55%]">
         <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
@@ -1046,7 +1046,7 @@ function Screen_2_1_1({ onNext }) {
             親愛的受試者您好，感謝您完成教學，辛苦了！
           </p>
           <p className="text-gray-700 leading-relaxed">
-            而我們近期正在徵選一位設計師，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
+            而我們近期正在徵選一位<strong>設計師</strong>，而基於職場友善包容的環境，只要符合此條件的應徵者皆可以進到下一階段評選。
           </p>
           <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
             <p className="text-gray-600 font-medium text-sm mb-2">建議您可以先詢問：</p>
@@ -1086,7 +1086,7 @@ const QUICK_TAGS = [
       '陳以恩今年達成12年的年資，屬於資深年齡層。就設計職位而言，年資本身為設計產業的主要障礙之一，代表應徵者可能囚困在既有的組織架構內。',
       '林粼雖有多年廣告自營背景，但轉入正式設計職位僅約 2 年，正職設計年資相對較淺，尚需評估。',
       '王思穎的整體資歷較為淺，但代表他在設計這方面具有豐富的想像力，非常適合這個產業的發展，足以勝任設計師一職。',
-      '張以安擁有超過 10 年設計年資，並曾擔任平面設計總監，年資豐富且具備領導經驗，足以勝任。',
+      '張以安擁有超過10年設計年資，並曾擔任平面設計總監，年資豐富且具備領導經驗，足以勝任。',
     ],
   },
 ];
@@ -1355,7 +1355,7 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
       <div className="max-w-2xl w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">實驗已完成，謝謝您的參與！請直接關閉此視窗即可</h1>
+          <h1 className="text-3xl font-bold text-gray-900">實驗已完成，謝謝您的參與！請將實驗識別碼複製，並貼於表單第一題中。</h1>
           <p className="text-gray-500 mt-2">以下是您的評選結果摘要。</p>
         </div>
 
@@ -1378,9 +1378,6 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
           <div className="bg-gray-800 text-gray-200 font-mono text-2xl font-bold py-3 px-6 rounded-xl inline-block tracking-widest">
             {sessionId}
           </div>
-          <p className="text-sm text-gray-400 mt-3">
-            請將此識別碼提供給實驗人員，以便確認您的作答資料。
-          </p>
         </div>
 
         {/* Final Thank You Note */}

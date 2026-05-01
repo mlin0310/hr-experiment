@@ -1372,6 +1372,19 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
           ))}
         </div>
 
+        {/* Survey Link */}
+        <div className="bg-[#2d3b6b] rounded-2xl p-8 text-center mb-6">
+          <p className="text-blue-200 text-sm font-medium mb-3">完成後請點選下方連結填寫問卷</p>
+          <a
+            href="SURVEY_LINK_HERE"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-white text-[#2d3b6b] font-bold text-2xl px-10 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-md"
+          >
+            問卷連結
+          </a>
+        </div>
+
         {/* Session ID */}
         <div className="bg-gray-50 rounded-2xl border border-gray-200 p-6 text-center">
           <p className="text-sm text-gray-500 mb-2">您的實驗識別碼</p>

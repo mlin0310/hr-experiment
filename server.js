@@ -3,6 +3,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import admin from 'firebase-admin';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import fs from 'fs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 
@@ -412,6 +418,17 @@ app.post('/api/save_rating', async (req, res) => {
   console.log(`[Rating] sessionId=${sessionId} candidate=${candidateIndex} rating=${rating} branch=${branch}`);
   return res.json({ success: true });
 });
+
+// ============================================================
+// 靜態檔案服務（生產環境）
+// ============================================================
+const distPath = join(__dirname, 'dist');
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.get('*', (_req, res) => {
+    res.sendFile(join(distPath, 'index.html'));
+  });
+}
 
 // ============================================================
 // Server

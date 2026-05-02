@@ -433,7 +433,7 @@ app.post('/api/save_rating', async (req, res) => {
 const distPath = join(__dirname, 'dist');
 if (fs.existsSync(distPath)) {
   app.use(express.static(distPath));
-  app.get('*', (_req, res) => {
+  app.get('/{*splat}', (_req, res) => {
     res.sendFile(join(distPath, 'index.html'));
   });
 }

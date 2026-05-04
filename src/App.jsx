@@ -279,9 +279,10 @@ export default function App() {
             </div>
             <div className="space-y-4 text-gray-900 leading-relaxed mb-8 text-base font-medium">
               <p>親愛的受試者您好，現在將進入模擬實際操作的教學階段。</p>
-              <p>畫面<strong>左方</strong>為本次系統測試的<strong>任務提醒</strong>，提示您的角色與每位候選人的提問限制。</p>
-              <p>畫面<strong>中間</strong>呈現候選人的<strong>履歷</strong>與 <strong>AI 摘要</strong>，請先閱讀履歷內容，再參閱 AI 所提供的摘要。</p>
-              <p>畫面<strong>右方</strong>為對話區塊，供您針對候選人資訊進行提問，每位候選人共有 <strong>2 次</strong>提問機會。提問結束後，請依據所獲得的資訊，對該候選人給予 <strong>1 至 5 分</strong>的評分。若您暫無詢問方向，亦可點選對話框上方的<strong>快速發問標籤</strong>。請注意，<strong>快速發問同樣計入提問次數</strong>。</p>
+              <p>畫面左方為本次系統測試的<strong>任務提醒</strong>，提示「您所擔任的角色」與「每位候選人的提問限制」。</p>
+              <p>畫面中間呈現候選人的履歷，<span style={{ color: '#8b0000' }}>請先閱讀履歷內容，再進行提問的動作</span>。</p>
+              <p>畫面右方為對話區塊，供您針對候選人資訊進行提問，而每位候選人共有「<span style={{ color: '#8b0000' }}>2 次提問機會</span>」。若您暫無詢問方向，亦可點選對話框上方的<strong>快速發問標籤</strong>，請注意，<span style={{ color: '#8b0000' }}>快速發問同樣計入提問次數</span>。</p>
+              <p>提問結束後，您有一些時間可以看一下對話紀錄，請依據所獲得的資訊，對該候選人給予 <span style={{ color: '#8b0000' }}>1 至 5 分</span>的評分。</p>
               <p className="font-bold text-center" style={{ color: '#8b0000' }}>現在請依照提示開始操作。</p>
             </div>
             <div className="flex justify-end">

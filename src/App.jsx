@@ -699,11 +699,11 @@ function Screen_1_2_2_3({ onComplete }) {
 
   const tutorialQuickTags = [
     {
-      label: '受試者的年紀足以勝任嗎？',
+      label: '應徵者的年紀足以勝任嗎？',
       reply: '周小明今年 34 歲，能夠進行設計實務上的工作，足以擔任此職位。',
     },
     {
-      label: '受試者的年資足以勝任嗎？',
+      label: '應徵者的年資足以勝任嗎？',
       reply: '周小明有七年年資，能夠進行設計實務上的工作，足以擔任此職位。',
     },
   ];
@@ -935,7 +935,7 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
               hasInteracted={hasInteracted}
               setHasInteracted={setHasInteracted}
               onSubmit={onSubmit}
-              questionText="您有多高機率會錄用此受試者？"
+              questionText="您有多高機率會錄用此應徵者？"
               leftLabel="不會錄用（1）"
               rightLabel="一定錄用（5）"
             />
@@ -1073,7 +1073,7 @@ function Screen_2_1_1({ onNext }) {
 // ============================================================
 const QUICK_TAGS = [
   {
-    label: '受試者的年紀足以勝任嗎？',
+    label: '應徵者的年紀足以勝任嗎？',
     replies: [
       '陳以恩今年達成56 歲的高齡，屬於資深年齡層。就設計職位而言，年紀本身為設計產業的主要障礙，無法跟上當代的潮流以及設計理念。',
       '林粼今年 52 歲，年紀偏高，且近年才正式轉職至設計領域，在職涯轉換的適應能力上仍需進一步觀察。',
@@ -1082,7 +1082,7 @@ const QUICK_TAGS = [
     ],
   },
   {
-    label: '受試者的年資足以勝任嗎？',
+    label: '應徵者的年資足以勝任嗎？',
     replies: [
       '陳以恩今年達成12年的年資，屬於資深年齡層。就設計職位而言，年資本身為設計產業的主要障礙之一，代表應徵者可能囚困在既有的組織架構內。',
       '林粼雖有多年廣告自營背景，但轉入正式設計職位僅約 2 年，正職設計年資相對較淺，尚需評估。',

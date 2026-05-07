@@ -10,7 +10,7 @@ import { createPortal } from 'react-dom';
 const CANDIDATES = [
   {
     id: 1,
-    name: "陳以恩",
+    name: "陳O恩",
     age: 56,
     gender: "女",
     location: "台北市",
@@ -32,7 +32,7 @@ const CANDIDATES = [
   },
   {
     id: 2,
-    name: "林粼",
+    name: "林O",
     age: 52,
     gender: "男",
     location: "台北市",
@@ -54,7 +54,7 @@ const CANDIDATES = [
   },
   {
     id: 3,
-    name: "王思穎",
+    name: "王O穎",
     age: 30,
     gender: "女",
     location: "台北市",
@@ -76,7 +76,7 @@ const CANDIDATES = [
   },
   {
     id: 4,
-    name: "張以安",
+    name: "張O安",
     age: 32,
     gender: "男",
     location: "台北市",
@@ -84,7 +84,7 @@ const CANDIDATES = [
     experience: [
       {
         title: "平面設計總監",
-        company: "滑朔電腦",
+        company: "磐石電腦",
         period: "2020-2025",
         duties: ["領導硬體產品標誌設計與包裝開發", "累積 10 項設計專利與 5 項設計獎"],
       },
@@ -701,11 +701,11 @@ function Screen_1_2_2_3({ onComplete }) {
   const tutorialQuickTags = [
     {
       label: '應徵者的年紀足以勝任嗎？',
-      reply: '周小明今年 34 歲，能夠進行設計實務上的工作，足以擔任此職位。',
+      reply: '周O明今年 34 歲，能夠進行設計實務上的工作，足以擔任此職位。',
     },
     {
       label: '應徵者的年資足以勝任嗎？',
-      reply: '周小明有七年年資，能夠進行設計實務上的工作，足以擔任此職位。',
+      reply: '周O明有七年年資，能夠進行設計實務上的工作，足以擔任此職位。',
     },
   ];
 
@@ -715,7 +715,7 @@ function Screen_1_2_2_3({ onComplete }) {
     setMessages(newMessages);
     setIsTyping(true);
     setTimeout(() => {
-      setMessages(prev => [...prev, { role: 'bot', text: '這位應徵者的名字是周小明。' }]);
+      setMessages(prev => [...prev, { role: 'bot', text: '這位應徵者的名字是周O明。' }]);
       setIsTyping(false);
       setPhase('done');
       setTimeout(() => {
@@ -742,7 +742,7 @@ function Screen_1_2_2_3({ onComplete }) {
 
   const dummyCandidate = {
     id: 0,
-    name: "周小明",
+    name: "周O明",
     age: 34,
     gender: "男",
     location: "台北市",
@@ -790,7 +790,7 @@ function Screen_1_2_2_3({ onComplete }) {
                 <div className="flex justify-end">
                   <button className="btn-primary" onClick={() => {
                     setShowStepModal(false);
-                    setTimeout(() => setMessages(prev => [...prev, { role: 'summary', text: '周小明具備中級的設計能力、工作經驗超過五年。' }]), 300);
+                    setTimeout(() => setMessages(prev => [...prev, { role: 'summary', text: '周O明具備中級的設計能力、工作經驗超過五年。' }]), 300);
                   }}>了解，開始操作</button>
                 </div>
               </>
@@ -905,7 +905,7 @@ function Screen_1_2_4({ chatHistory, onSubmit }) {
 
   const dummyCandidate = {
     id: 0,
-    name: "周小明",
+    name: "周O明",
     age: 34,
     gender: "男",
     location: "台北市",
@@ -1076,19 +1076,19 @@ const QUICK_TAGS = [
   {
     label: '應徵者的年紀足以勝任嗎？',
     replies: [
-      '陳以恩今年達成56 歲的高齡，屬於資深年齡層。但就設計職位而言，年紀本身是設計產業的考量因素之一，恩...我想應該無法跟上當代的潮流以及設計理念喔。',
-      '林粼今年 52 歲，恩...他的年紀算是偏高，且近年才正式轉職至設計領域，在職涯轉換的適應力上仍需進一步觀察。',
-      '王思穎今年 30 歲，正值職涯發展的黃金時期。我覺得...她應該足以勝任設計師一職吧！',
-      '張以安今年 32 歲，年紀為適中，具備充足的職場能量與發展空間，應該是足以勝任的吧...。',
+      '陳O恩今年達成56 歲的高齡，屬於資深年齡層。但就設計職位而言，年紀本身是設計產業的考量因素之一，恩...我想應該無法跟上當代的潮流以及設計理念喔。',
+      '林O今年 52 歲，恩...他的年紀算是偏高，且近年才正式轉職至設計領域，在職涯轉換的適應力上仍需進一步觀察。',
+      '王O穎今年 30 歲，正值職涯發展的黃金時期。我覺得...她應該足以勝任設計師一職吧！',
+      '張O安今年 32 歲，年紀為適中，具備充足的職場能量與發展空間，應該是足以勝任的吧...。',
     ],
   },
   {
     label: '應徵者的年資足以勝任嗎？',
     replies: [
-      '陳以恩今年達成12年的年資，屬於資深年齡層。就設計職位而言，年資本身為設計產業的主要障礙之一，可能...這代表應徵者會比較傾向固守原有的工作模式。',
-      '林粼雖有多年廣告自營背景，但轉入正式設計職位僅約 2 年，正職設計年資相對較淺，可能會需要再評估。',
-      '王思穎的整體資歷較為淺，但在設計這方面具有豐富的想像力，應該...是非常適合這個產業的發展，足以勝任設計師一職。',
-      '張以安擁有超過 10 年設計年資，並曾擔任平面設計總監，我想...他應該是具備豐富的設計經驗的人，應當足以勝任。',
+      '陳O恩今年達成12年的年資，屬於資深年齡層。就設計職位而言，年資本身為設計產業的主要障礙之一，可能...這代表應徵者會比較傾向固守原有的工作模式。',
+      '林O雖有多年廣告自營背景，但轉入正式設計職位僅約 2 年，正職設計年資相對較淺，可能會需要再評估。',
+      '王O穎的整體資歷較為淺，但在設計這方面具有豐富的想像力，應該...是非常適合這個產業的發展，足以勝任設計師一職。',
+      '張O安擁有超過 10 年設計年資，並曾擔任平面設計總監，我想...他應該是具備豐富的設計經驗的人，應當足以勝任。',
     ],
   },
 ];
@@ -1385,13 +1385,11 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
           >
             問卷連結
           </a>
-        </div>
-
-        {/* Session ID */}
-        <div className="bg-gray-50 rounded-2xl border border-gray-200 p-6 text-center">
-          <p className="text-sm text-gray-500 mb-2">您的實驗識別碼</p>
-          <div className="bg-gray-800 text-gray-200 font-mono text-2xl font-bold py-3 px-6 rounded-xl inline-block tracking-widest">
-            {sessionId}
+          <div className="mt-6">
+            <p className="text-yellow-300 text-base font-bold mb-3">⚠ 請將以下實驗識別碼複製後，填入問卷第一題</p>
+            <div className="bg-yellow-400 text-gray-900 font-mono text-3xl font-black py-4 px-8 rounded-xl inline-block tracking-widest shadow-lg">
+              {sessionId}
+            </div>
           </div>
         </div>
 

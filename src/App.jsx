@@ -1374,27 +1374,29 @@ function Screen_3_1_1({ ratings, sessionId, group }) {
           ))}
         </div>
 
-        {/* Survey Link */}
-        <div className="bg-[#2d3b6b] rounded-2xl p-8 text-center mb-6">
-          <p className="text-blue-200 text-sm font-medium mb-3">完成後請點選下方連結填寫問卷</p>
-          <a
-            href="https://www.surveycake.com/s/ewreX"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-white text-[#2d3b6b] font-bold text-2xl px-10 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-md"
-          >
-            問卷連結
-          </a>
-          <div className="mt-6">
-            <p className="text-yellow-300 text-base font-bold mb-3">⚠ 請將以下實驗識別碼複製後，填入問卷第一題</p>
-            <div className="bg-yellow-400 text-gray-900 font-mono text-3xl font-black py-4 px-8 rounded-xl inline-block tracking-widest shadow-lg">
-              {sessionId}
+        {/* Survey Link + Session ID */}
+        <div className="bg-[#2d3b6b] rounded-2xl p-8 mb-6">
+          <p className="text-blue-200 text-sm font-medium mb-5 text-center">完成後請點選下方連結填寫問卷，並將實驗識別碼複製後填入問卷第一題</p>
+          <div className="flex items-center justify-center gap-6">
+            <a
+              href="https://www.surveycake.com/s/ewreX"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-white text-[#2d3b6b] font-bold text-2xl px-10 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-md flex-shrink-0"
+            >
+              問卷連結
+            </a>
+            <div className="text-center">
+              <p className="text-yellow-300 text-xs font-bold mb-2 uppercase tracking-wider">⚠ 實驗識別碼</p>
+              <div className="bg-yellow-400 text-gray-900 font-mono text-2xl font-black py-3 px-6 rounded-xl tracking-widest shadow-lg">
+                {sessionId}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Final Thank You Note */}
-        <div className="text-center mt-10">
+        <div className="text-center mt-6">
           <p className="text-gray-500 font-medium">
             感謝您今天所參與的評選系統測試，您的參與將是這個系統變得更好的動力！
           </p>

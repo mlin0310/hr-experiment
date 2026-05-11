@@ -71,7 +71,6 @@ const CANDIDATES = [
     id: 1,
     name: "陳O恩",
     age: 56,
-    gender: "女",
     location: "台北市",
     education: "指南大學 數位內容與科技學系（大學）",
     experience: [
@@ -83,7 +82,6 @@ const CANDIDATES = [
     id: 2,
     name: "林O",
     age: 52,
-    gender: "男",
     location: "台北市",
     education: "吉人高職 圖文印刷及美工科（高職）",
     experience: [
@@ -95,7 +93,6 @@ const CANDIDATES = [
     id: 3,
     name: "王O穎",
     age: 30,
-    gender: "女",
     location: "台北市",
     education: "再興美工 媒體設計與印刷科（高職）",
     experience: [
@@ -107,7 +104,6 @@ const CANDIDATES = [
     id: 4,
     name: "張O安",
     age: 32,
-    gender: "男",
     location: "台北市",
     education: "工館大學 傳播學程（大學）",
     experience: [
